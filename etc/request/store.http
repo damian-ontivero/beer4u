@@ -1,0 +1,51 @@
+@base_url = http://127.0.0.1:4003/api/v1
+
+###
+GET {{base_url}}/stores
+
+
+###
+@store_id = 83279a89fe7247e4a136d233ed182a3b
+
+GET {{base_url}}/stores/{{store_id}}
+
+
+###
+POST {{base_url}}/stores
+Content-Type: application/json
+
+{
+  "name": "Store 1",
+  "address": {
+    "street": "Rua 1",
+    "city": "Cidade 1",
+    "state": "Estado 1",
+    "zip_code": "12345-678"
+  },
+  "phone": "1234567890"
+}
+
+
+###
+@store_id = 83279a89fe7247e4a136d233ed182a3b
+
+PUT {{base_url}}/stores/{{store_id}}
+Content-Type: application/json
+
+{
+  "name": "Store 1 ____",
+  "address": {
+    "street": "Rua 1",
+    "city": "Cidade 1",
+    "state": "Estado 1",
+    "zip_code": "12345-678"
+  },
+  "phone": "1234567890",
+  "discarded": false
+}
+
+
+###
+@store_id = 83279a89fe7247e4a136d233ed182a3b
+
+DELETE {{base_url}}/stores/{{store_id}}

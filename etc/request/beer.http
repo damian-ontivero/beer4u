@@ -1,0 +1,42 @@
+@base_url = http://127.0.0.1:4003/api/v1
+
+###
+GET {{base_url}}/beers
+
+
+###
+@beer_id = c286019b9fd94657b8dd7eee60ed93a4
+
+GET {{base_url}}/beers/{{beer_id}}
+
+
+###
+POST {{base_url}}/beers
+Content-Type: application/json
+
+{
+  "name": "New Beer 1",
+  "type": "IPA",
+  "alcohol": 6.5,
+  "description": "A new beer description"
+}
+
+
+###
+@beer_id = c286019b9fd94657b8dd7eee60ed93a4
+
+PUT {{base_url}}/beers/{{beer_id}}
+Content-Type: application/json
+
+{
+  "name": "New Beer",
+  "type": "IPA",
+  "alcohol": 6.5,
+  "description": "A new beer description"
+}
+
+
+###
+@beer_id = c286019b9fd94657b8dd7eee60ed93a4
+
+DELETE {{base_url}}/beers/{{beer_id}}

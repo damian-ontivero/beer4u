@@ -2,6 +2,7 @@ from uuid import uuid4
 
 
 class EntityId:
+
     __slots__ = ("_value",)
 
     @classmethod
@@ -17,9 +18,13 @@ class EntityId:
             raise TypeError("Entity Id must be a string")
         if not value:
             raise ValueError("Entity Id must not be empty")
-        self = super().__new__(cls)
-        self._value = value
-        return self
+        instance = super().__new__(cls)
+        instance._value = value
+        return instance
+
+    @property
+    def value(self) -> str:
+        return self._value
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, EntityId):
@@ -34,7 +39,3 @@ class EntityId:
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}(value={self._value!r})"
-
-    @property
-    def value(self) -> str:
-        return self._value

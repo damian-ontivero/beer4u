@@ -1,9 +1,25 @@
-from fastapi import FastAPI, Request
-from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from beer4u.beer.beer.infrastructure.cqrs.command.register import (
+    register_command_handlers as register_command_handlers_beer,
+)
+from beer4u.beer.beer.infrastructure.cqrs.query.register import (
+    register_query_handlers as register_query_handlers_beer,
+)
+from beer4u.beer.beer.infrastructure.ui.api.router import router as beer_router
+from beer4u.beer.store.infrastructure.cqrs.command.register import (
+    register_command_handlers as register_command_handlers_store,
+)
+from beer4u.beer.store.infrastructure.cqrs.query.register import (
+    register_query_handlers as register_query_handlers_store,
+)
+from beer4u.beer.store.infrastructure.ui.api.router import (
+    router as store_router,
+)
 from beer4u.shared.infrastructure.ui.api.v1.exception import (
     EXCEPTION_TO_HTTP_STATUS_CODE,
 )
@@ -12,9 +28,12 @@ from beer4u.shared.infrastructure.ui.api.v1.schema import MessageResponseSchema
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    register_query_handlers()
-    register_command_handlers()
+    register_query_handlers_beer()
+    register_command_handlers_beer()
+    register_query_handlers_store()
+    register_command_handlers_store()
     yield
+
 
 app = FastAPI(
     title="Beer4U API",
@@ -23,6 +42,7 @@ app = FastAPI(
     lifespan=lifespan,
     root_path="/api/v1",
 )
+
 
 # CORS
 app.add_middleware(
@@ -33,8 +53,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # Routers
-app.include_router(router=)
+app.include_router(router=beer_router)
+app.include_router(router=store_router)
 
 
 # Setups the exception handler
@@ -50,4 +72,4 @@ def exception_handler(request: Request, exception: Exception):
 
 @app.get("/", tags=["Health check"], response_model=MessageResponseSchema)
 def health_check():
-    return JSONResponse(content={"message": "Component API is up!"})
+    return JSONResponse(content={"message": "Beer4U API is up!"})

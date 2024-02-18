@@ -1,0 +1,88 @@
+from beer4u.shared.domain.aggregate_root import AggregateRoot
+from beer4u.shared.domain.entity_id import EntityId
+
+
+class Beer(AggregateRoot):
+
+    def __init__(
+        self,
+        id: EntityId,
+        name: str,
+        type: str,
+        alcohol: float,
+        description: str,
+        discarded: bool = False,
+    ):
+        super().__init__(id=id, discarded=discarded)
+        self._name = name
+        self._type = type
+        self._alcohol = alcohol
+        self._description = description
+
+    @property
+    def name(self) -> str:
+        return self._name
+
+    @property
+    def type(self) -> str:
+        return self._type
+
+    @property
+    def alcohol(self) -> float:
+        return self._alcohol
+
+    @property
+    def description(self) -> str:
+        return self._description
+
+    @classmethod
+    def create(
+        cls,
+        name: str,
+        type: str,
+        alcohol: float,
+        description: str,
+    ):
+        return cls(
+            EntityId.generate(), name, type, alcohol, description, False
+        )
+
+    @classmethod
+    def from_primitives(
+        cls,
+        id: str,
+        name: str,
+        type: str,
+        alcohol: float,
+        description: str,
+        discarded: bool,
+    ):
+        return cls(
+            EntityId.from_text(id), name, type, alcohol, description, discarded
+        )
+
+    def to_primitives(self):
+        return {
+            "id": self.id.value,
+            "name": self.name,
+            "type": self.type,
+            "alcohol": self.alcohol,
+            "description": self.description,
+            "discarded": self.discarded,
+        }
+
+    def update(
+        self,
+        name: str | None = None,
+        type: str | None = None,
+        alcohol: float | None = None,
+        description: str | None = None,
+    ) -> None:
+        if name is not None:
+            self._name = name
+        if type is not None:
+            self._type = type
+        if alcohol is not None:
+            self._alcohol = alcohol
+        if description is not None:
+            self._description = description

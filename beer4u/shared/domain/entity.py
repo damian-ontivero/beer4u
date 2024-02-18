@@ -29,6 +29,15 @@ class Entity(metaclass=ABCMeta):
         self._id = id
         self._discarded = discarded
 
+    @property
+    def id(self) -> EntityId:
+        self._check_not_discarded()
+        return self._id
+
+    @property
+    def discarded(self) -> bool:
+        return self._discarded
+
     def __eq__(self, other: object) -> bool:
         if isinstance(other, self.__class__):
             return self._id == other._id
@@ -39,15 +48,6 @@ class Entity(metaclass=ABCMeta):
 
     def __hash__(self) -> int:
         return hash(self._id)
-
-    @property
-    def id(self) -> EntityId:
-        self._check_not_discarded()
-        return self._id
-
-    @property
-    def discarded(self) -> bool:
-        return self._discarded
 
     def _check_not_discarded(self) -> None:
         if self.discarded:

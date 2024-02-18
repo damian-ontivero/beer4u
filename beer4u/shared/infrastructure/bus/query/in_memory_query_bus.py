@@ -3,6 +3,7 @@ from beer4u.shared.domain.bus.query.query_handler import QueryHandler
 
 
 class InMemoryQueryBus:
+
     _instance = None
 
     def __new__(cls) -> "InMemoryQueryBus":

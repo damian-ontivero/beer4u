@@ -5,6 +5,7 @@ from beer4u.shared.domain.bus.command.command_handler import CommandHandler
 
 
 class CommandBus(metaclass=ABCMeta):
+
     @abstractmethod
     def register(self, command: Command, handler: CommandHandler) -> None:
         raise NotImplementedError

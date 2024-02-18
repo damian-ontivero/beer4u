@@ -5,6 +5,7 @@ from beer4u.shared.domain.bus.query.query_handler import QueryHandler
 
 
 class QueryBus(metaclass=ABCMeta):
+
     @abstractmethod
     def register(self, query: Query, handler: QueryHandler) -> None:
         raise NotImplementedError

@@ -4,6 +4,7 @@ from beer4u.shared.domain.bus.command.command_handler import CommandHandler
 
 
 class InMemoryCommandBus(CommandBus):
+
     _instance = None
 
     def __new__(cls) -> "InMemoryCommandBus":
