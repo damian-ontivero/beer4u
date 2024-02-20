@@ -4,17 +4,17 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from beer4u.beer.beer.infrastructure.cqrs.command.register import (
+from beer4u.beer.beer.infrastructure.bus.command.register import (
     register_command_handlers as register_command_handlers_beer,
 )
-from beer4u.beer.beer.infrastructure.cqrs.query.register import (
+from beer4u.beer.beer.infrastructure.bus.query.register import (
     register_query_handlers as register_query_handlers_beer,
 )
 from beer4u.beer.beer.infrastructure.ui.api.router import router as beer_router
-from beer4u.beer.store.infrastructure.cqrs.command.register import (
+from beer4u.beer.store.infrastructure.bus.command.register import (
     register_command_handlers as register_command_handlers_store,
 )
-from beer4u.beer.store.infrastructure.cqrs.query.register import (
+from beer4u.beer.store.infrastructure.bus.query.register import (
     register_query_handlers as register_query_handlers_store,
 )
 from beer4u.beer.store.infrastructure.ui.api.router import (
