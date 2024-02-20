@@ -5,7 +5,8 @@ from .search_by_id_query import SearchBeerByIdQuery
 
 
 class SearchBeerByIdQueryHandler(QueryHandler):
-    def __init__(self, repository: BeerRepository):
+
+    def __init__(self, repository: BeerRepository) -> None:
         self._repository = repository
 
     def handle(self, query: SearchBeerByIdQuery) -> Beer:

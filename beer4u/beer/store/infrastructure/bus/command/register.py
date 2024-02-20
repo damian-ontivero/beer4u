@@ -10,17 +10,17 @@ from beer4u.beer.store.infrastructure.persistence.sqlite import (
     SqliteStoreRepository,
 )
 from beer4u.shared.infrastructure.bus.command import InMemoryCommandBus
-from beer4u.shared.infrastructure.persistence.sqlite.db import SessionLocal
+from beer4u.shared.infrastructure.persistence.sqlite.db import SqliteSession
 
 COMMAND_HANDLER_MAPPING = {
     RegisterStoreCommand: RegisterStoreCommandHandler(
-        repository=SqliteStoreRepository(SessionLocal)
+        repository=SqliteStoreRepository(SqliteSession)
     ),
     UpdateStoreCommand: UpdateStoreCommandHandler(
-        repository=SqliteStoreRepository(SessionLocal)
+        repository=SqliteStoreRepository(SqliteSession)
     ),
     DeleteStoreCommand: DeleteStoreCommandHandler(
-        repository=SqliteStoreRepository(SessionLocal)
+        repository=SqliteStoreRepository(SqliteSession)
     ),
 }
 

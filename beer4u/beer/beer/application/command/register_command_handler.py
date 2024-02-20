@@ -5,11 +5,12 @@ from .register_command import RegisterBeerCommand
 
 
 class RegisterBeerCommandHandler(CommandHandler):
-    def __init__(self, repository: BeerRepository):
-        self.repository = repository
 
-    def handle(self, command: RegisterBeerCommand):
+    def __init__(self, repository: BeerRepository) -> None:
+        self._repository = repository
+
+    def handle(self, command: RegisterBeerCommand) -> None:
         beer = Beer.create(
             command.name, command.type, command.alcohol, command.description
         )
-        self.repository.save(beer)
+        self._repository.save(beer)

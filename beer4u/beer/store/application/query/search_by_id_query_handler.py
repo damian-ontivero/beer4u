@@ -5,7 +5,8 @@ from .search_by_id_query import SearchStoreByIdQuery
 
 
 class SearchStoreByIdQueryHandler(QueryHandler):
-    def __init__(self, repository: StoreRepository):
+
+    def __init__(self, repository: StoreRepository) -> None:
         self._repository = repository
 
     def handle(self, query: SearchStoreByIdQuery) -> Store:

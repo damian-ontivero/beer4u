@@ -13,7 +13,7 @@ def get_session():
     return sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
 
-SessionLocal = get_session()
+SqliteSession = get_session()
 
 
 class Base(DeclarativeBase):

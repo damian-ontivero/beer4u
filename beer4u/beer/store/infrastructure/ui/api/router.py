@@ -9,12 +9,9 @@ from beer4u.beer.store.application.query import (
     SearchAllStoreQuery,
     SearchStoreByIdQuery,
 )
+from beer4u.bootstrap import get_command_bus, get_query_bus
 from beer4u.shared.domain.bus.command import CommandBus
 from beer4u.shared.domain.bus.query import QueryBus
-from beer4u.shared.infrastructure.ui.api.v1.dependency import (
-    get_command_bus,
-    get_query_bus,
-)
 from beer4u.shared.infrastructure.ui.api.v1.schema import MessageResponseSchema
 
 from .schema import RegisterStoreSchema, StoreSchema, UpdateStoreSchema

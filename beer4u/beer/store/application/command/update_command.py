@@ -5,6 +5,7 @@ from beer4u.shared.domain.bus.command import Command
 
 @dataclass(frozen=True)
 class UpdateStoreCommand(Command):
+
     id: str
     name: str
     address: dict

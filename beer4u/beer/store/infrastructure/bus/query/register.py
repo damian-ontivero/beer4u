@@ -8,14 +8,14 @@ from beer4u.beer.store.infrastructure.persistence.sqlite import (
     SqliteStoreRepository,
 )
 from beer4u.shared.infrastructure.bus.query import InMemoryQueryBus
-from beer4u.shared.infrastructure.persistence.sqlite.db import SessionLocal
+from beer4u.shared.infrastructure.persistence.sqlite.db import SqliteSession
 
 QUERY_HANDLER_MAPPING = {
     SearchAllStoreQuery: SearchAllStoreQueryHandler(
-        repository=SqliteStoreRepository(SessionLocal)
+        repository=SqliteStoreRepository(SqliteSession)
     ),
     SearchStoreByIdQuery: SearchStoreByIdQueryHandler(
-        repository=SqliteStoreRepository(SessionLocal)
+        repository=SqliteStoreRepository(SqliteSession)
     ),
 }
 

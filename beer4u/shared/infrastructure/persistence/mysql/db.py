@@ -36,24 +36,16 @@ def get_session(
 
 
 config = get_config()
-db_user = config.get("database", "user")
-db_pass = config.get("database", "pass")
-db_host = config.get("database", "host")
-db_port = config.getint("database", "port")
-db_name = config.get("database", "database")
-db_pool_size = config.getint("database", "pool_size")
-db_auto_commit = config.getboolean("database", "autocommit")
-db_verbose = config.getboolean("database", "verbose")
 
-SessionLocal = get_session(
-    db_user,
-    db_pass,
-    db_host,
-    db_port,
-    db_name,
-    db_pool_size,
-    db_auto_commit,
-    db_verbose,
+MySqlSession = get_session(
+    config.get("database", "user"),
+    config.get("database", "pass"),
+    config.get("database", "host"),
+    config.getint("database", "port"),
+    config.get("database", "database"),
+    config.getint("database", "pool_size"),
+    config.getboolean("database", "autocommit"),
+    config.getboolean("database", "verbose"),
 )
 
 

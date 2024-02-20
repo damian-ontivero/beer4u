@@ -5,11 +5,12 @@ from .update_command import UpdateBeerCommand
 
 
 class UpdateBeerCommandHandler(CommandHandler):
-    def __init__(self, repository: BeerRepository):
-        self.repository = repository
 
-    def handle(self, command: UpdateBeerCommand):
-        beer = self.repository.search(command.id)
+    def __init__(self, repository: BeerRepository) -> None:
+        self._repository = repository
+
+    def handle(self, command: UpdateBeerCommand) -> None:
+        beer = self._repository.search(command.id)
         if beer is None:
             raise Exception(f"Beer with id {command.id} not found")
         beer.update(
@@ -18,4 +19,4 @@ class UpdateBeerCommandHandler(CommandHandler):
             alcohol=command.alcohol,
             description=command.description,
         )
-        self.repository.save(beer)
+        self._repository.save(beer)

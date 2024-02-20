@@ -11,7 +11,7 @@ class Beer(AggregateRoot):
         alcohol: float,
         description: str,
         discarded: bool = False,
-    ):
+    ) -> None:
         super().__init__(id=id, discarded=discarded)
         self._name = name
         self._type = type
@@ -41,7 +41,7 @@ class Beer(AggregateRoot):
         type: str,
         alcohol: float,
         description: str,
-    ):
+    ) -> "Beer":
         return cls(
             EntityId.generate(), name, type, alcohol, description, False
         )
@@ -55,12 +55,12 @@ class Beer(AggregateRoot):
         alcohol: float,
         description: str,
         discarded: bool,
-    ):
+    ) -> "Beer":
         return cls(
             EntityId.from_text(id), name, type, alcohol, description, discarded
         )
 
-    def to_primitives(self):
+    def to_primitives(self) -> dict:
         return {
             "id": self.id.value,
             "name": self.name,

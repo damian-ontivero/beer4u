@@ -1,22 +1,8 @@
-from contextlib import asynccontextmanager
-
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from beer4u.beer.beer.infrastructure.bus.command.register import (
-    register_command_handlers as register_command_handlers_beer,
-)
-from beer4u.beer.beer.infrastructure.bus.query.register import (
-    register_query_handlers as register_query_handlers_beer,
-)
 from beer4u.beer.beer.infrastructure.ui.api.router import router as beer_router
-from beer4u.beer.store.infrastructure.bus.command.register import (
-    register_command_handlers as register_command_handlers_store,
-)
-from beer4u.beer.store.infrastructure.bus.query.register import (
-    register_query_handlers as register_query_handlers_store,
-)
 from beer4u.beer.store.infrastructure.ui.api.router import (
     router as store_router,
 )
@@ -24,21 +10,10 @@ from beer4u.beer.store.infrastructure.ui.api.router import (
 from .exception import EXCEPTION_TO_HTTP_STATUS_CODE
 from .schema import MessageResponseSchema
 
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    register_query_handlers_beer()
-    register_command_handlers_beer()
-    register_query_handlers_store()
-    register_command_handlers_store()
-    yield
-
-
 app = FastAPI(
     title="Beer4U API",
     description="All the endpoints to interact with the Beer4U API.",
     version="0.1.0",
-    lifespan=lifespan,
     root_path="/api/v1",
 )
 

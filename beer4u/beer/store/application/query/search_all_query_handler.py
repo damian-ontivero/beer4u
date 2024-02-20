@@ -5,7 +5,8 @@ from .search_all_query import SearchAllStoreQuery
 
 
 class SearchAllStoreQueryHandler(QueryHandler):
-    def __init__(self, repository: StoreRepository):
+
+    def __init__(self, repository: StoreRepository) -> None:
         self._repository = repository
 
     def handle(self, query: SearchAllStoreQuery) -> list[Store]:

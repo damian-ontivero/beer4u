@@ -5,11 +5,12 @@ from .delete_command import DeleteBeerCommand
 
 
 class DeleteBeerCommandHandler(CommandHandler):
-    def __init__(self, repository: BeerRepository):
-        self.repository = repository
 
-    def handle(self, command: DeleteBeerCommand):
-        beer = self.repository.search(command.id)
+    def __init__(self, repository: BeerRepository) -> None:
+        self._repository = repository
+
+    def handle(self, command: DeleteBeerCommand) -> None:
+        beer = self._repository.search(command.id)
         if beer is None:
             raise Exception(f"Beer with id {command.id} not found")
-        self.repository.delete(beer.id.value)
+        self._repository.delete(beer.id.value)

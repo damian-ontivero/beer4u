@@ -5,7 +5,8 @@ from .search_all_query import SearchAllBeerQuery
 
 
 class SearchAllBeerQueryHandler(QueryHandler):
-    def __init__(self, repository: BeerRepository):
+
+    def __init__(self, repository: BeerRepository) -> None:
         self._repository = repository
 
     def handle(self, query: SearchAllBeerQuery) -> list[Beer]:
