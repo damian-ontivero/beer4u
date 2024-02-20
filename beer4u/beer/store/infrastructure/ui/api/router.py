@@ -1,32 +1,23 @@
 from fastapi import APIRouter, Depends
 
-from beer4u.beer.store.application.command.delete_command import (
+from beer4u.beer.store.application.command import (
     DeleteStoreCommand,
-)
-from beer4u.beer.store.application.command.register_command import (
     RegisterStoreCommand,
-)
-from beer4u.beer.store.application.command.update_command import (
     UpdateStoreCommand,
 )
-from beer4u.beer.store.application.query.search_all_query import (
+from beer4u.beer.store.application.query import (
     SearchAllStoreQuery,
-)
-from beer4u.beer.store.application.query.search_by_id_query import (
     SearchStoreByIdQuery,
 )
-from beer4u.beer.store.infrastructure.ui.api.schema import (
-    RegisterStoreSchema,
-    StoreSchema,
-    UpdateStoreSchema,
-)
-from beer4u.shared.domain.bus.command.command_bus import CommandBus
-from beer4u.shared.domain.bus.query.query_bus import QueryBus
+from beer4u.shared.domain.bus.command import CommandBus
+from beer4u.shared.domain.bus.query import QueryBus
 from beer4u.shared.infrastructure.ui.api.v1.dependency import (
     get_command_bus,
     get_query_bus,
 )
 from beer4u.shared.infrastructure.ui.api.v1.schema import MessageResponseSchema
+
+from .schema import RegisterStoreSchema, StoreSchema, UpdateStoreSchema
 
 router = APIRouter(prefix="/stores", tags=["Stores"])
 

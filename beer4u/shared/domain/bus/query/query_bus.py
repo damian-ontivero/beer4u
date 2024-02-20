@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
-from beer4u.shared.domain.bus.query.query import Query
-from beer4u.shared.domain.bus.query.query_handler import QueryHandler
+from .query import Query
+from .query_handler import QueryHandler
 
 
 class QueryBus(metaclass=ABCMeta):

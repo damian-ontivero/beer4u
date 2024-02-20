@@ -1,9 +1,7 @@
-from beer4u.beer.beer.application.command.register_command import (
-    RegisterBeerCommand,
-)
-from beer4u.beer.beer.domain.beer import Beer
-from beer4u.beer.beer.domain.beer_repository import BeerRepository
-from beer4u.shared.domain.bus.command.command_handler import CommandHandler
+from beer4u.beer.beer.domain import Beer, BeerRepository
+from beer4u.shared.domain.bus.command import CommandHandler
+
+from .register_command import RegisterBeerCommand
 
 
 class RegisterBeerCommandHandler(CommandHandler):

@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from beer4u.beer.store.domain.store import Store
+from .store import Store
 
 FILTER_OPERATOR_MAPPER = {
     "eq": lambda m, k, v: getattr(m, k) == v,

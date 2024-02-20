@@ -1,8 +1,7 @@
-from beer4u.beer.store.application.command.update_command import (
-    UpdateStoreCommand,
-)
-from beer4u.beer.store.domain.store_repository import StoreRepository
-from beer4u.shared.domain.bus.command.command_handler import CommandHandler
+from beer4u.beer.store.domain import StoreRepository
+from beer4u.shared.domain.bus.command import CommandHandler
+
+from .update_command import UpdateStoreCommand
 
 
 class UpdateStoreCommandHandler(CommandHandler):

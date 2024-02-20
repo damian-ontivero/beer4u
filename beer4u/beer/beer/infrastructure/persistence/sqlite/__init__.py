@@ -1,3 +1,2 @@
 from .beer import BeerSqliteModel
-
-__all__ = ["BeerSqliteModel"]
+from .beer_repository import SqliteBeerRepository

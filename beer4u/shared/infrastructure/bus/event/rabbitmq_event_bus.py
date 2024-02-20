@@ -3,8 +3,8 @@ import re
 
 import pika
 
-from beer4u.shared.domain.bus.event.event_bus import EventBus
-from beer4u.shared.domain.domain_event import DomainEvent
+from beer4u.shared.domain import DomainEvent
+from beer4u.shared.domain.bus.event import EventBus
 
 
 class RabbitMQEventBus(EventBus):

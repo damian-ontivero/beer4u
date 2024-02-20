@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
-from beer4u.shared.domain.bus.command.command import Command
-from beer4u.shared.domain.bus.command.command_handler import CommandHandler
+from .command import Command
+from .command_handler import CommandHandler
 
 
 class CommandBus(metaclass=ABCMeta):

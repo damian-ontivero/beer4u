@@ -20,10 +20,9 @@ from beer4u.beer.store.infrastructure.bus.query.register import (
 from beer4u.beer.store.infrastructure.ui.api.router import (
     router as store_router,
 )
-from beer4u.shared.infrastructure.ui.api.v1.exception import (
-    EXCEPTION_TO_HTTP_STATUS_CODE,
-)
-from beer4u.shared.infrastructure.ui.api.v1.schema import MessageResponseSchema
+
+from .exception import EXCEPTION_TO_HTTP_STATUS_CODE
+from .schema import MessageResponseSchema
 
 
 @asynccontextmanager

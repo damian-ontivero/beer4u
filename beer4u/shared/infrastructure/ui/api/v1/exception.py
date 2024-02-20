@@ -1,11 +1,7 @@
 from fastapi import status
 from jwt.exceptions import ExpiredSignatureError
 
-from beer4u.shared.domain.exception import (
-    AlreadyExists,
-    AuthenticationError,
-    NotFound,
-)
+from beer4u.shared.domain import AlreadyExists, AuthenticationError, NotFound
 
 EXCEPTION_TO_HTTP_STATUS_CODE = {
     Exception: status.HTTP_500_INTERNAL_SERVER_ERROR,

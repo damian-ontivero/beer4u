@@ -1,10 +1,8 @@
 from sqlalchemy.orm import Session
 
-from beer4u.beer.beer.domain.beer import Beer
-from beer4u.beer.beer.domain.beer_repository import BeerRepository
-from beer4u.beer.beer.infrastructure.persistence.sqlite.beer import (
-    BeerSqliteModel,
-)
+from beer4u.beer.beer.domain import Beer, BeerRepository
+
+from .beer import BeerSqliteModel
 
 
 class SqliteBeerRepository(BeerRepository):

@@ -1,3 +1,2 @@
 from .store import StoreSqliteModel
-
-__all__ = ["StoreSqliteModel"]
+from .store_repository import SqliteStoreRepository

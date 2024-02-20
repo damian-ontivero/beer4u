@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from beer4u.shared.domain.bus.query.query import Query
+from .query import Query
 
 
 class QueryHandler(metaclass=ABCMeta):

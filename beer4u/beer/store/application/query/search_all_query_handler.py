@@ -1,9 +1,7 @@
-from beer4u.beer.store.application.query.search_all_query import (
-    SearchAllStoreQuery,
-)
-from beer4u.beer.store.domain.store import Store
-from beer4u.beer.store.domain.store_repository import StoreRepository
-from beer4u.shared.domain.bus.query.query_handler import QueryHandler
+from beer4u.beer.store.domain import Store, StoreRepository
+from beer4u.shared.domain.bus.query import QueryHandler
+
+from .search_all_query import SearchAllStoreQuery
 
 
 class SearchAllStoreQueryHandler(QueryHandler):

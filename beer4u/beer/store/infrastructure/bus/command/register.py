@@ -1,27 +1,15 @@
-from beer4u.beer.store.application.command.delete_command import (
+from beer4u.beer.store.application.command import (
     DeleteStoreCommand,
-)
-from beer4u.beer.store.application.command.delete_command_handler import (
     DeleteStoreCommandHandler,
-)
-from beer4u.beer.store.application.command.register_command import (
     RegisterStoreCommand,
-)
-from beer4u.beer.store.application.command.register_command_handler import (
     RegisterStoreCommandHandler,
-)
-from beer4u.beer.store.application.command.update_command import (
     UpdateStoreCommand,
-)
-from beer4u.beer.store.application.command.update_command_handler import (
     UpdateStoreCommandHandler,
 )
-from beer4u.beer.store.infrastructure.persistence.sqlite.store_repository import (
+from beer4u.beer.store.infrastructure.persistence.sqlite import (
     SqliteStoreRepository,
 )
-from beer4u.shared.infrastructure.bus.command.in_memory_command_bus import (
-    InMemoryCommandBus,
-)
+from beer4u.shared.infrastructure.bus.command import InMemoryCommandBus
 from beer4u.shared.infrastructure.persistence.sqlite.db import SessionLocal
 
 COMMAND_HANDLER_MAPPING = {

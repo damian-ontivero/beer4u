@@ -1,5 +1,4 @@
-from beer4u.shared.domain.aggregate_root import AggregateRoot
-from beer4u.shared.domain.entity_id import EntityId
+from beer4u.shared.domain import AggregateRoot, EntityId
 
 
 class Beer(AggregateRoot):

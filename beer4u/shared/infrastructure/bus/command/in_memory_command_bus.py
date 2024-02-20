@@ -1,6 +1,8 @@
-from beer4u.shared.domain.bus.command.command import Command
-from beer4u.shared.domain.bus.command.command_bus import CommandBus
-from beer4u.shared.domain.bus.command.command_handler import CommandHandler
+from beer4u.shared.domain.bus.command import (
+    Command,
+    CommandBus,
+    CommandHandler,
+)
 
 
 class InMemoryCommandBus(CommandBus):

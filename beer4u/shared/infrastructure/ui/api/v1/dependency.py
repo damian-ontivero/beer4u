@@ -1,14 +1,8 @@
 import configparser
 
-from beer4u.shared.infrastructure.bus.command.in_memory_command_bus import (
-    InMemoryCommandBus,
-)
-from beer4u.shared.infrastructure.bus.event.rabbitmq_event_bus import (
-    RabbitMQEventBus,
-)
-from beer4u.shared.infrastructure.bus.query.in_memory_query_bus import (
-    InMemoryQueryBus,
-)
+from beer4u.shared.infrastructure.bus.command import InMemoryCommandBus
+from beer4u.shared.infrastructure.bus.event import RabbitMQEventBus
+from beer4u.shared.infrastructure.bus.query import InMemoryQueryBus
 
 config = configparser.ConfigParser()
 config.read("beer4u/config.ini")

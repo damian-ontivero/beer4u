@@ -1,5 +1,4 @@
-from beer4u.shared.domain.bus.query.query import Query
-from beer4u.shared.domain.bus.query.query_handler import QueryHandler
+from beer4u.shared.domain.bus.query import Query, QueryHandler
 
 
 class InMemoryQueryBus:
