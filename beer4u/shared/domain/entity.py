@@ -53,6 +53,10 @@ class Entity(metaclass=ABCMeta):
         if self.discarded:
             raise DiscardedEntityError("The entity is discarded")
 
+    def discard(self) -> None:
+        self._check_not_discarded()
+        self._discarded = True
+
 
 class DiscardedEntityError(Exception):
     """Raised when an operation is attempted on a discarded entity."""

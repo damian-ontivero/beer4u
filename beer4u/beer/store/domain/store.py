@@ -81,17 +81,24 @@ class Store(AggregateRoot):
 
     def update(
         self,
-        name: str,
-        address: dict,
-        phone: str,
-        discarded: bool,
+        name: str | None = None,
+        address: dict | None = None,
+        phone: str | None = None,
     ) -> None:
-        self._name = name
-        self._address = Address.from_primitives(
-            address.get("street"),
-            address.get("city"),
-            address.get("state"),
-            address.get("zip_code"),
-        )
-        self._phone = phone
-        self._discarded = discarded
+        if name is not None:
+            if not self._name == name:
+                self._name = name
+        if address is not None:
+            if not self._address == address:
+                self._address = Address.from_primitives(
+                    address.get("street"),
+                    address.get("city"),
+                    address.get("state"),
+                    address.get("zip_code"),
+                )
+        if phone is not None:
+            if not self._phone == phone:
+                self._phone = phone
+
+    def discard(self) -> None:
+        super().discard()

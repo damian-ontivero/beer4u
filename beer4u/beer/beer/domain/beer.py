@@ -43,7 +43,12 @@ class Beer(AggregateRoot):
         description: str,
     ) -> "Beer":
         return cls(
-            EntityId.generate(), name, type, alcohol, description, False
+            EntityId.generate(),
+            name,
+            type,
+            alcohol,
+            description,
+            False,
         )
 
     @classmethod
@@ -57,7 +62,12 @@ class Beer(AggregateRoot):
         discarded: bool,
     ) -> "Beer":
         return cls(
-            EntityId.from_text(id), name, type, alcohol, description, discarded
+            EntityId.from_text(id),
+            name,
+            type,
+            alcohol,
+            description,
+            discarded,
         )
 
     def to_primitives(self) -> dict:
@@ -78,10 +88,17 @@ class Beer(AggregateRoot):
         description: str | None = None,
     ) -> None:
         if name is not None:
-            self._name = name
+            if not self._name == name:
+                self._name = name
         if type is not None:
-            self._type = type
+            if not self._type == type:
+                self._type = type
         if alcohol is not None:
-            self._alcohol = alcohol
+            if not self._alcohol == alcohol:
+                self._alcohol = alcohol
         if description is not None:
-            self._description = description
+            if not self._description == description:
+                self._description = description
+
+    def discard(self) -> None:
+        super().discard()
