@@ -1,8 +1,8 @@
 from beer4u.beer.beer.application.query import (
+    FindBeerByIdQuery,
+    FindBeerByIdQueryHandler,
     SearchAllBeerQuery,
     SearchAllBeerQueryHandler,
-    SearchBeerByIdQuery,
-    SearchBeerByIdQueryHandler,
 )
 from beer4u.beer.beer.infrastructure.persistence.sqlite import (
     SqliteBeerRepository,
@@ -14,7 +14,7 @@ QUERY_HANDLER_MAPPING = {
     SearchAllBeerQuery: SearchAllBeerQueryHandler(
         SqliteBeerRepository(SqliteSession)
     ),
-    SearchBeerByIdQuery: SearchBeerByIdQueryHandler(
+    FindBeerByIdQuery: FindBeerByIdQueryHandler(
         SqliteBeerRepository(SqliteSession)
     ),
 }

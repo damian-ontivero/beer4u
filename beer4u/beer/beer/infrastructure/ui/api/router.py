@@ -6,8 +6,8 @@ from beer4u.beer.beer.application.command import (
     UpdateBeerCommand,
 )
 from beer4u.beer.beer.application.query import (
+    FindBeerByIdQuery,
     SearchAllBeerQuery,
-    SearchBeerByIdQuery,
 )
 from beer4u.bootstrap import get_command_bus, get_query_bus
 from beer4u.shared.domain.bus.command import CommandBus
@@ -33,7 +33,7 @@ async def get_beer(
     id: str,
     query_bus: QueryBus = Depends(get_query_bus),
 ):
-    query = SearchBeerByIdQuery(id)
+    query = FindBeerByIdQuery(id)
     result = query_bus.ask(query)
     return result.to_primitives()
 
