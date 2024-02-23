@@ -9,8 +9,8 @@ class SearchAllStoreQueryHandler(QueryHandler):
     def __init__(self, repository: StoreRepository) -> None:
         self._repository = repository
 
-    @property
-    def subscribe_to(self) -> Query:
+    @staticmethod
+    def subscribe_to() -> Query:
         return SearchAllStoreQuery
 
     def handle(self, query: SearchAllStoreQuery) -> list[Store]:

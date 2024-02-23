@@ -9,8 +9,8 @@ class SearchAllBeerQueryHandler(QueryHandler):
     def __init__(self, repository: BeerRepository) -> None:
         self._repository = repository
 
-    @property
-    def subscribe_to(self) -> Query:
+    @staticmethod
+    def subscribe_to() -> Query:
         return SearchAllBeerQuery
 
     def handle(self, query: SearchAllBeerQuery) -> list[Beer]:

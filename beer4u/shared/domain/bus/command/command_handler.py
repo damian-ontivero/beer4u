@@ -5,9 +5,9 @@ from .command import Command
 
 class CommandHandler(metaclass=ABCMeta):
 
-    @property
+    @staticmethod
     @abstractmethod
-    def subscribe_to(self) -> Command:
+    def subscribe_to() -> Command:
         raise NotImplementedError
 
     @abstractmethod

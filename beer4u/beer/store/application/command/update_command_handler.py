@@ -9,8 +9,8 @@ class UpdateStoreCommandHandler(CommandHandler):
     def __init__(self, repository: StoreRepository) -> None:
         self._repository = repository
 
-    @property
-    def subscribe_to(self) -> Command:
+    @staticmethod
+    def subscribe_to() -> Command:
         return UpdateStoreCommand
 
     def handle(self, command: UpdateStoreCommand) -> None:

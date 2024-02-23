@@ -1,15 +1,16 @@
 from abc import ABCMeta, abstractmethod
 
 from .command import Command
-from .command_handler import CommandHandler
 
 
 class CommandBus(metaclass=ABCMeta):
 
     @abstractmethod
-    def register(self, command: Command, handler: CommandHandler) -> None:
-        raise NotImplementedError
-
-    @abstractmethod
     def dispatch(self, command: Command) -> None:
         raise NotImplementedError
+
+
+class CommandNotRegisteredError(Exception):
+
+    def __init__(self, command: Command):
+        super().__init__(f"No handler for {command.__class__.__name__}")

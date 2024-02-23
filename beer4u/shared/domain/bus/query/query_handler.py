@@ -5,9 +5,9 @@ from .query import Query
 
 class QueryHandler(metaclass=ABCMeta):
 
-    @property
+    @staticmethod
     @abstractmethod
-    def subscribe_to(self) -> Query:
+    def subscribe_to() -> Query:
         raise NotImplementedError
 
     @abstractmethod

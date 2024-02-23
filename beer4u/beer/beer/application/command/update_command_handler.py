@@ -9,8 +9,8 @@ class UpdateBeerCommandHandler(CommandHandler):
     def __init__(self, repository: BeerRepository) -> None:
         self._repository = repository
 
-    @property
-    def subscribe_to(self) -> Command:
+    @staticmethod
+    def subscribe_to() -> Command:
         return UpdateBeerCommand
 
     def handle(self, command: UpdateBeerCommand) -> None:

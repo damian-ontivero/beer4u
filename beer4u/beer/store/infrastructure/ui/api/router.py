@@ -9,7 +9,7 @@ from beer4u.beer.store.application.query import (
     FindStoreByIdQuery,
     SearchAllStoreQuery,
 )
-from beer4u.bootstrap import get_command_bus, get_query_bus
+from beer4u.bootstrap import bootstrap
 from beer4u.shared.domain.bus.command import CommandBus
 from beer4u.shared.domain.bus.query import QueryBus
 from beer4u.shared.infrastructure.ui.api.v1.schema import MessageResponseSchema
@@ -18,11 +18,13 @@ from .schema import RegisterStoreSchema, StoreSchema, UpdateStoreSchema
 
 router = APIRouter(prefix="/stores", tags=["Stores"])
 
+ioc_container = bootstrap()
+query_bus: QueryBus = ioc_container.resolve("QueryBus")
+command_bus: CommandBus = ioc_container.resolve("CommandBus")
+
 
 @router.get("", response_model=list[StoreSchema])
-async def list_all_stores(
-    query_bus: QueryBus = Depends(get_query_bus),
-):
+async def list_all_stores():
     query = SearchAllStoreQuery()
     result = query_bus.ask(query)
     return [store.to_primitives() for store in result]
@@ -31,7 +33,6 @@ async def list_all_stores(
 @router.get("/{id}", response_model=StoreSchema)
 async def get_store(
     id: str,
-    query_bus: QueryBus = Depends(get_query_bus),
 ):
     query = FindStoreByIdQuery(id)
     result = query_bus.ask(query)
@@ -41,19 +42,18 @@ async def get_store(
 @router.post("")
 async def register_store(
     store: RegisterStoreSchema,
-    command_bus: CommandBus = Depends(get_command_bus),
 ):
     command = RegisterStoreCommand(
         store.name, store.address.model_dump(), store.phone
     )
-    return command_bus.dispatch(command)
+    command_bus.dispatch(command)
+    return {"message": "Store registered"}
 
 
 @router.put("/{id}")
 async def update_store(
     id: str,
     store: UpdateStoreSchema,
-    command_bus: CommandBus = Depends(get_command_bus),
 ):
     command = UpdateStoreCommand(
         id,
@@ -62,13 +62,13 @@ async def update_store(
         store.phone,
         store.discarded,
     )
-    return command_bus.dispatch(command)
+    command_bus.dispatch(command)
+    return {"message": "Store updated"}
 
 
 @router.delete("/{id}", response_model=MessageResponseSchema)
 async def delete_store(
     id: str,
-    command_bus: CommandBus = Depends(get_command_bus),
 ):
     command = DeleteStoreCommand(id)
     command_bus.dispatch(command)
