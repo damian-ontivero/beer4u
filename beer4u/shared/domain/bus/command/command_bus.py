@@ -10,7 +10,5 @@ class CommandBus(metaclass=ABCMeta):
         raise NotImplementedError
 
 
-class CommandNotRegisteredError(Exception):
-
-    def __init__(self, command: Command):
-        super().__init__(f"No handler for {command.__name__}")
+class RegisteredCommandError(Exception):
+    pass

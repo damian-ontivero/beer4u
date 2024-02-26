@@ -1,5 +1,6 @@
 from beer4u.beer.beer.domain import Beer, BeerRepository
 from beer4u.shared.domain.bus.query import QueryHandler
+from beer4u.shared.domain.exception import NotFound
 
 from .find_by_id_query import FindBeerByIdQuery
 
@@ -12,5 +13,5 @@ class FindBeerByIdQueryHandler(QueryHandler):
     def handle(self, query: FindBeerByIdQuery) -> Beer:
         beer = self._repository.search(query.id)
         if beer is None:
-            raise Exception(f"Beer with id {query.id} not found")
+            raise NotFound(f"Beer with id {query.id} not found")
         return beer

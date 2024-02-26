@@ -2,7 +2,7 @@ from beer4u.shared.domain.bus.command import (
     Command,
     CommandBus,
     CommandHandler,
-    CommandNotRegisteredError,
+    RegisteredCommandError,
 )
 
 
@@ -16,5 +16,7 @@ class InMemoryCommandBus(CommandBus):
     def dispatch(self, command: Command) -> None:
         handler = self._command_handler_map.get(type(command))
         if handler is None:
-            raise CommandNotRegisteredError(command)
+            raise RegisteredCommandError(
+                f"Command: {command!r} not registered"
+            )
         handler.handle(command)

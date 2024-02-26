@@ -10,7 +10,5 @@ class QueryBus(metaclass=ABCMeta):
         raise NotImplementedError
 
 
-class QueryNotRegisteredError(Exception):
-
-    def __init__(self, query: Query):
-        super().__init__(f"No handler for {query.__name__}")
+class RegisteredQueryError(Exception):
+    pass

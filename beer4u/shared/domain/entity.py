@@ -24,8 +24,6 @@ class Entity(metaclass=ABCMeta):
 
     @abstractmethod
     def __init__(self, id: EntityId, discarded: bool = False) -> None:
-        if id is None:
-            raise ValueError("Entity Id must not be None")
         self._id = id
         self._discarded = discarded
 
@@ -51,7 +49,7 @@ class Entity(metaclass=ABCMeta):
 
     def _check_not_discarded(self) -> None:
         if self.discarded:
-            raise DiscardedEntityError("The entity is discarded")
+            raise DiscardedEntityError("Attempt to use {}".format(repr(self)))
 
     def discard(self) -> None:
         self._check_not_discarded()
@@ -59,6 +57,4 @@ class Entity(metaclass=ABCMeta):
 
 
 class DiscardedEntityError(Exception):
-    """Raised when an operation is attempted on a discarded entity."""
-
     pass

@@ -22,8 +22,12 @@ class AggregateRoot(Entity):
 
     def _register_domain_event(self, domain_event: DomainEvent) -> None:
         if domain_event is None:
-            raise ValueError("Domain event must not be None")
+            raise RegisteredDomainEventError("Domain event is None")
         self._domain_events.append(domain_event)
 
     def clear_domain_events(self) -> None:
         self._domain_events.clear()
+
+
+class RegisteredDomainEventError(Exception):
+    pass

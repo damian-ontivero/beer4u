@@ -2,7 +2,7 @@ from beer4u.shared.domain.bus.query import (
     Query,
     QueryBus,
     QueryHandler,
-    QueryNotRegisteredError,
+    RegisteredQueryError,
 )
 
 
@@ -14,5 +14,5 @@ class InMemoryQueryBus(QueryBus):
     def ask(self, query: Query):
         handler = self._query_handler_map.get(type(query))
         if handler is None:
-            raise QueryNotRegisteredError(query)
+            raise RegisteredQueryError(f"Query: {query!r} not registered")
         return handler.handle(query)

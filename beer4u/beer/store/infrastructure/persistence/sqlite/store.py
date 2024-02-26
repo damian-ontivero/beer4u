@@ -4,7 +4,6 @@ from beer4u.shared.infrastructure.persistence.sqlite.db import Base
 
 
 class StoreSqliteModel(Base):
-
     __tablename__ = "store"
 
     id = Column(String(32), primary_key=True, index=True)

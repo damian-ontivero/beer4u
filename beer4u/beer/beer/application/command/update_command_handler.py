@@ -1,5 +1,6 @@
 from beer4u.beer.beer.domain import BeerRepository
 from beer4u.shared.domain.bus.command import CommandHandler
+from beer4u.shared.domain.exception import NotFound
 
 from .update_command import UpdateBeerCommand
 
@@ -12,7 +13,7 @@ class UpdateBeerCommandHandler(CommandHandler):
     def handle(self, command: UpdateBeerCommand) -> None:
         beer = self._repository.search(command.id)
         if beer is None:
-            raise Exception(f"Beer with id {command.id} not found")
+            raise NotFound(f"Beer with id {command.id} not found")
         beer.update(
             name=command.name,
             type=command.type,
