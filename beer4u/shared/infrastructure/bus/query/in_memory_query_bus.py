@@ -1,12 +1,18 @@
-from beer4u.shared.domain.bus.query import Query, QueryBus, QueryHandler
+from beer4u.shared.domain.bus.query import (
+    Query,
+    QueryBus,
+    QueryHandler,
+    QueryNotRegisteredError,
+)
 
 
 class InMemoryQueryBus(QueryBus):
 
-    def __init__(self, query_handlers: list[QueryHandler]):
-        self._query_handlers = self._handlers = {
-            handler.subscribe_to(): handler for handler in query_handlers
-        }
+    def __init__(self, query_handler_map: dict[Query, QueryHandler]) -> None:
+        self._query_handler_map = query_handler_map
 
-    def dispatch(self, query: Query) -> None:
-        self._query_handlers.get(type(query)).handle(query)
+    def ask(self, query: Query):
+        handler = self._query_handler_map.get(type(query))
+        if handler is None:
+            raise QueryNotRegisteredError(query)
+        return handler.handle(query)

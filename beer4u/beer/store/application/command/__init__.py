@@ -4,3 +4,9 @@ from .register_command import RegisterStoreCommand
 from .register_command_handler import RegisterStoreCommandHandler
 from .update_command import UpdateStoreCommand
 from .update_command_handler import UpdateStoreCommandHandler
+
+STORE_COMMAND_HANDLERS = {
+    RegisterStoreCommand: RegisterStoreCommandHandler,
+    UpdateStoreCommand: UpdateStoreCommandHandler,
+    DeleteStoreCommand: DeleteStoreCommandHandler,
+}

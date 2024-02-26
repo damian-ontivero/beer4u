@@ -13,4 +13,4 @@ class QueryBus(metaclass=ABCMeta):
 class QueryNotRegisteredError(Exception):
 
     def __init__(self, query: Query):
-        super().__init__(f"No handler for {query.__class__.__name__}")
+        super().__init__(f"No handler for {query.__name__}")

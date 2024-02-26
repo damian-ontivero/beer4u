@@ -23,12 +23,7 @@ class RabbitMQEventBus(EventBus):
     """
 
     def __init__(
-        self,
-        domain: str,
-        host: str,
-        port: int,
-        username: str,
-        password: str,
+        self, domain: str, host: str, port: int, username: str, password: str
     ) -> None:
         self._domain = domain
         self._host = host

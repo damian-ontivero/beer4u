@@ -13,4 +13,4 @@ class CommandBus(metaclass=ABCMeta):
 class CommandNotRegisteredError(Exception):
 
     def __init__(self, command: Command):
-        super().__init__(f"No handler for {command.__class__.__name__}")
+        super().__init__(f"No handler for {command.__name__}")

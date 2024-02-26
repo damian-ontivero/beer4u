@@ -2,15 +2,19 @@ from beer4u.shared.domain.bus.command import (
     Command,
     CommandBus,
     CommandHandler,
+    CommandNotRegisteredError,
 )
 
 
 class InMemoryCommandBus(CommandBus):
 
-    def __init__(self, command_handlers: list[CommandHandler]):
-        self._command_handlers = {
-            handler.subscribe_to(): handler for handler in command_handlers
-        }
+    def __init__(
+        self, command_handler_map: dict[Command, CommandHandler]
+    ) -> None:
+        self._command_handler_map = command_handler_map
 
     def dispatch(self, command: Command) -> None:
-        self._command_handlers.get(type(command)).handle(command)
+        handler = self._command_handler_map.get(type(command))
+        if handler is None:
+            raise CommandNotRegisteredError(command)
+        handler.handle(command)

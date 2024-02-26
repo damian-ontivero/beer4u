@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 
 from beer4u.beer.beer.application.command import (
     DeleteBeerCommand,
@@ -9,9 +9,9 @@ from beer4u.beer.beer.application.query import (
     FindBeerByIdQuery,
     SearchAllBeerQuery,
 )
-from beer4u.bootstrap import bootstrap
 from beer4u.shared.domain.bus.command import CommandBus
 from beer4u.shared.domain.bus.query import QueryBus
+from beer4u.shared.infrastructure.ui.api.v1.bootstrap import bootstrap
 from beer4u.shared.infrastructure.ui.api.v1.schema import MessageResponseSchema
 
 from .schema import BeerSchema, RegisterBeerSchema, UpdateBeerSchema
@@ -19,8 +19,8 @@ from .schema import BeerSchema, RegisterBeerSchema, UpdateBeerSchema
 router = APIRouter(prefix="/beers", tags=["Beers"])
 
 ioc_container = bootstrap()
-query_bus: QueryBus = ioc_container.resolve("QueryBus")
-command_bus: CommandBus = ioc_container.resolve("CommandBus")
+query_bus: QueryBus = ioc_container.resolve("query_bus")
+command_bus: CommandBus = ioc_container.resolve("command_bus")
 
 
 @router.get("", response_model=list[BeerSchema])
