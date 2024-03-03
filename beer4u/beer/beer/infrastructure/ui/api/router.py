@@ -27,7 +27,7 @@ command_bus: CommandBus = ioc_container.resolve("command_bus")
 @router.get("", response_model=list[BeerSchema])
 async def search_by_criteria(
     filters: Json = Query(None),
-    orders=Query(None),
+    orders: Json = Query(None),
     page_size: int = Query(default=100),
     page_number: int = Query(default=1),
 ):

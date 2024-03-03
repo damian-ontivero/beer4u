@@ -1,5 +1,5 @@
-from .field import Field
-from .order_type import OrderType
+from .order_direction import OrderDirection
+from .order_field import OrderField
 
 
 class Order:
@@ -9,47 +9,54 @@ class Order:
         "_direction",
     )
 
-    def __init__(self, field: Field, order_type: OrderType) -> None:
+    def __init__(self, field: OrderField, direction: OrderDirection) -> None:
         self._field = field
-        self._order_type = order_type
+        self._direction = direction
+
+    @property
+    def field(self) -> OrderField:
+        return self._field
+
+    @property
+    def direction(self) -> OrderDirection:
+        return self._direction
 
     @property
     def is_none(self) -> bool:
-        return self._order_type.is_none
+        return self._direction.is_none
 
     @staticmethod
     def none() -> "Order":
-        return Order(Field(""), OrderType("NONE"))
+        return Order(OrderField(""), OrderDirection("NONE"))
 
     @classmethod
-    def from_primitives(cls, field: str | None, order_type: str) -> "Order":
+    def from_primitives(cls, field: str | None, direction: str) -> "Order":
         if field is None:
             return cls.none()
-        return cls(Field(field), OrderType(order_type))
+        return cls(OrderField(field), OrderDirection(direction))
 
     def to_primitives(self) -> dict:
         return {
-            "order_by": self._order_by.value,
-            "order_type": self._order_type.value,
+            "field": self._field.value,
+            "direction": self._direction.value,
         }
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Order):
             return NotImplemented
         return (
-            self._order_by == other._order_by
-            and self._order_type == other._order_type
+            self._field == other._field and self._direction == other._direction
         )
 
     def __ne__(self, other: object) -> bool:
         return not self == other
 
     def __hash__(self) -> int:
-        return hash((self._order_by, self._order_type))
+        return hash((self._field, self._direction))
 
     def __repr__(self) -> str:
-        return "{c}(order_by={order_by!r}, order_type={order_type!r})".format(
+        return "{c}(field={field!r}, direction={direction!r})".format(
             c=self.__class__.__name__,
-            order_by=self._order_by,
-            order_type=self._order_type,
+            field=self._field,
+            direction=self._direction,
         )

@@ -91,8 +91,8 @@ def criteria_to_sqlalchemy_query(
     if criteria.has_orders:
         for order in criteria.orders:
             query = query.order_by(
-                getattr(model, order.order_by).asc()
-                if order.order_type == "ASC"
-                else getattr(model, order.order_by).desc()
+                getattr(model, order.field.value).asc()
+                if order.direction.value == "ASC"
+                else getattr(model, order.field.value).desc()
             )
     return query

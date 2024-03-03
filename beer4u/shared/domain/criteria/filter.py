@@ -1,4 +1,4 @@
-from .field import Field
+from .filter_field import FilterField
 from .filter_operator import FilterOperator
 from .filter_value import FilterValue
 
@@ -12,7 +12,7 @@ class Filter:
     )
 
     def __init__(
-        self, field: Field, operator: FilterOperator, value: FilterValue
+        self, field: FilterField, operator: FilterOperator, value: FilterValue
     ) -> None:
         self._field = field
         self._operator = operator
@@ -35,7 +35,7 @@ class Filter:
         cls, field: str, operator: str, value: str
     ) -> "Filter":
         return cls(
-            Field(field),
+            FilterField(field),
             FilterOperator(operator),
             FilterValue(value),
         )

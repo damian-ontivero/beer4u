@@ -1,4 +1,5 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
+from pydantic import Json
 
 from beer4u.beer.store.application.command import (
     DeleteStoreCommand,
@@ -7,7 +8,7 @@ from beer4u.beer.store.application.command import (
 )
 from beer4u.beer.store.application.query import (
     FindStoreByIdQuery,
-    SearchAllStoreQuery,
+    SearchStoreByCriteriaQuery,
 )
 from beer4u.shared.domain.bus.command import CommandBus
 from beer4u.shared.domain.bus.query import QueryBus
@@ -24,8 +25,18 @@ command_bus: CommandBus = ioc_container.resolve("command_bus")
 
 
 @router.get("", response_model=list[StoreSchema])
-async def list_all_stores():
-    query = SearchAllStoreQuery()
+async def search_by_criteria(
+    filters: Json = Query(None),
+    orders: Json = Query(None),
+    page_size: int = Query(default=100),
+    page_number: int = Query(default=1),
+):
+    query = SearchStoreByCriteriaQuery(
+        filters=filters,
+        orders=orders,
+        page_size=page_size,
+        page_number=page_number,
+    )
     result = query_bus.ask(query)
     return [store.to_primitives() for store in result]
 

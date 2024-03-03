@@ -1,4 +1,4 @@
-class Field:
+class OrderField:
 
     __slots__ = ("_value",)
 
@@ -14,7 +14,7 @@ class Field:
         return self._value
 
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, Field):
+        if not isinstance(other, OrderField):
             return NotImplemented
         return self._value == other._value
 
