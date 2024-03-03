@@ -1,25 +1,17 @@
-from .order_by import OrderBy
+from .field import Field
 from .order_type import OrderType
 
 
 class Order:
 
     __slots__ = (
-        "_order_by",
-        "_order_type",
+        "_field",
+        "_direction",
     )
 
-    def __init__(self, order_by: OrderBy, order_type: OrderType) -> None:
-        self._order_by = order_by
+    def __init__(self, field: Field, order_type: OrderType) -> None:
+        self._field = field
         self._order_type = order_type
-
-    @property
-    def order_by(self) -> str:
-        return self._order_by.value
-
-    @property
-    def order_type(self) -> str:
-        return self._order_type.value
 
     @property
     def is_none(self) -> bool:
@@ -27,13 +19,13 @@ class Order:
 
     @staticmethod
     def none() -> "Order":
-        return Order(OrderBy(""), OrderType("NONE"))
+        return Order(Field(""), OrderType("NONE"))
 
     @classmethod
-    def from_primitives(cls, order_by: str | None, order_type: str) -> "Order":
-        if order_by is None:
+    def from_primitives(cls, field: str | None, order_type: str) -> "Order":
+        if field is None:
             return cls.none()
-        return cls(OrderBy(order_by), OrderType(order_type))
+        return cls(Field(field), OrderType(order_type))
 
     def to_primitives(self) -> dict:
         return {

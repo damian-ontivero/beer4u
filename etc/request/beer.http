@@ -1,12 +1,14 @@
 @base_url = http://127.0.0.1:8000/api/v1
-
-###
-GET {{base_url}}/beers?filters=[{"field": "name", "operator": "ENDS_WITH", "value": "1"}]
-
-
-###
 @beer_id = 37dfb8f97e2c4a478fc2e11ec64666b8
 
+###
+GET {{base_url}}/beers
+
+###
+GET {{base_url}}/beers?filters=[{"field": "alcohol", "operator": "GT", "value": "5.0"}, {"field": "type", "operator": "NOT_EQUALS", "value": "Lager"}]&orders=[{"field": "alcohol", "direction": "DESC"}]
+
+
+###
 GET {{base_url}}/beers/{{beer_id}}
 
 
@@ -15,28 +17,25 @@ POST {{base_url}}/beers
 Content-Type: application/json
 
 {
-  "name": "New Beer 1",
-  "type": "IPA",
-  "alcohol": 6.5,
-  "description": "A new beer description"
+  "name": "Estrella Galicia Especial",
+  "type": "Lager Especial",
+  "alcohol": 5.5,
+  "description": "An Amazing Beer",
 }
 
 
 ###
-@beer_id = 37dfb8f97e2c4a478fc2e11ec64666b8
-
 PUT {{base_url}}/beers/{{beer_id}}
 Content-Type: application/json
 
 {
-  "name": "New Beer",
-  "type": "IPA",
-  "alcohol": 6.5,
-  "description": "A new beer description"
+  "name": "Estrella Galicia Especial",
+  "type": "Lager",
+  "alcohol": 5.5,
+  "description": "An Amazing Beer",
+  "discarded": false
 }
 
 
 ###
-@beer_id = 37dfb8f97e2c4a478fc2e11ec64666b8
-
 DELETE {{base_url}}/beers/{{beer_id}}

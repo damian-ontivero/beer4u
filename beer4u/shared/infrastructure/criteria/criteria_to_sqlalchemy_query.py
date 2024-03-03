@@ -82,14 +82,14 @@ def criteria_to_sqlalchemy_query(
     query: Query, model: Base, criteria: Criteria
 ):
     if criteria.has_filters:
-        for filter in criteria.filters.value:
+        for filter in criteria.filters:
             filter_operator = FILTER_OPERATOR_MAPPER[filter.operator]
             query = query.filter(
                 filter_operator(model, filter.field, filter.value)
             )
 
     if criteria.has_orders:
-        for order in criteria.orders.value:
+        for order in criteria.orders:
             query = query.order_by(
                 getattr(model, order.order_by).asc()
                 if order.order_type == "ASC"

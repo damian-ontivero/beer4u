@@ -1,5 +1,5 @@
-from .filters import Filters
-from .orders import Orders
+from .filter import Filter
+from .order import Order
 
 
 class Criteria:
@@ -13,51 +13,57 @@ class Criteria:
 
     def __init__(
         self,
-        filters: Filters,
-        orders: Orders,
-        page_size: int,
-        page_number: int,
+        filters: list[Filter] | None,
+        orders: list[Order] | None,
+        page_size: int | None,
+        page_number: int | None,
     ):
-        if not isinstance(filters, Filters):
-            raise TypeError("Filters must be an instance of Filters")
-        if not isinstance(orders, Orders):
-            raise TypeError("Orders must be an instance of Orders")
-        if not isinstance(page_size, int):
-            raise TypeError("Page size must be an integer")
-        if not page_size > 0:
-            raise ValueError("Page size must be greater than 0")
-        if not isinstance(page_number, int):
-            raise TypeError("Page number must be an integer")
-        if not page_number > 0:
-            raise ValueError("Page number must be greater than 0")
+        if filters is not None:
+            if not all(isinstance(filter, Filter) for filter in filters):
+                raise TypeError("Filters must be a list of Filter")
+        if orders is not None:
+            if not all(isinstance(order, Order) for order in orders):
+                raise TypeError("Orders must be a list of Order")
+        if page_size is not None:
+            if not isinstance(page_size, int):
+                raise TypeError("Page size must be an integer")
+            if page_size < 1:
+                raise ValueError("Page size must be greater than 0")
+        if page_number is not None:
+            if not isinstance(page_number, int):
+                raise TypeError("Page number must be an integer")
+            if page_number < 1:
+                raise ValueError("Page number must be greater than 0")
         self._filters = filters
         self._orders = orders
         self._page_size = page_size
         self._page_number = page_number
 
     @property
-    def filters(self) -> Filters:
+    def filters(self) -> list[Filter] | None:
         return self._filters
 
     @property
-    def orders(self) -> Orders:
+    def orders(self) -> list[Order] | None:
         return self._orders
 
     @property
-    def page_size(self) -> int:
+    def page_size(self) -> int | None:
         return self._page_size
 
     @property
-    def page_number(self) -> int:
+    def page_number(self) -> int | None:
         return self._page_number
 
     @property
     def has_filters(self) -> bool:
-        return not self._filters.is_empty
+        if self._filters is not None:
+            return len(self._filters) > 0
 
     @property
     def has_orders(self) -> bool:
-        return not self._orders.is_empty
+        if self._orders is not None:
+            return len(self._orders) > 0
 
     @classmethod
     def from_primitives(
@@ -67,20 +73,11 @@ class Criteria:
         page_size: int | None,
         page_number: int | None,
     ) -> "Criteria":
-        return cls(
-            Filters.from_primitives(filters) if filters else Filters([]),
-            Orders.from_primitives(orders) if orders else Orders([]),
-            page_size,
-            page_number,
-        )
-
-    def to_primitives(self) -> dict:
-        return {
-            "filters": self._filters.to_primitives(),
-            "orders": self._orders.to_primitives(),
-            "page_size": self._page_size,
-            "page_number": self._page_number,
-        }
+        if filters is not None:
+            filters = [Filter.from_primitives(**filter) for filter in filters]
+        if orders is not None:
+            orders = [Order.from_primitives(**order) for order in orders]
+        return cls(filters, orders, page_size, page_number)
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Criteria):

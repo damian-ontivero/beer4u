@@ -1,4 +1,4 @@
-class FilterField:
+class Field:
 
     __slots__ = ("_value",)
 
@@ -14,7 +14,7 @@ class FilterField:
         return self._value
 
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, FilterField):
+        if not isinstance(other, Field):
             return NotImplemented
         return self._value == other._value
 
