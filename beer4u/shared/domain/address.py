@@ -59,17 +59,17 @@ class Address:
         }
 
     def __eq__(self, other: object) -> bool:
-        if isinstance(other, Address):
-            return (
-                self._street == other._street
-                and self._city == other._city
-                and self._state == other._state
-                and self._zip_code == other._zip_code
-            )
-        return NotImplemented
+        if not isinstance(other, Address):
+            return NotImplemented
+        return (
+            self._street == other._street
+            and self._city == other._city
+            and self._state == other._state
+            and self._zip_code == other._zip_code
+        )
 
     def __ne__(self, other: object) -> bool:
-        return not self.__eq__(other)
+        return not self == other
 
     def __hash__(self) -> int:
         return hash((self._street, self._city, self._state, self._zip_code))

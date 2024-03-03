@@ -28,15 +28,14 @@ class Money:
         return {"currency": self._currency, "amount": self._amount}
 
     def __eq__(self, other: object) -> bool:
-        if isinstance(other, Money):
-            return (
-                self._currency == other._currency
-                and self._amount == other._amount
-            )
-        return NotImplemented
+        if not isinstance(other, Money):
+            return NotImplemented
+        return (
+            self._currency == other._currency and self._amount == other._amount
+        )
 
     def __ne__(self, other: object) -> bool:
-        return not self.__eq__(other)
+        return not self == other
 
     def __hash__(self) -> int:
         return hash((self._currency, self._amount))

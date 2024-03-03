@@ -1,4 +1,5 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
+from pydantic import Json
 
 from beer4u.beer.beer.application.command import (
     DeleteBeerCommand,
@@ -7,7 +8,7 @@ from beer4u.beer.beer.application.command import (
 )
 from beer4u.beer.beer.application.query import (
     FindBeerByIdQuery,
-    SearchAllBeerQuery,
+    SearchBeerByCriteriaQuery,
 )
 from beer4u.shared.domain.bus.command import CommandBus
 from beer4u.shared.domain.bus.query import QueryBus
@@ -24,25 +25,31 @@ command_bus: CommandBus = ioc_container.resolve("command_bus")
 
 
 @router.get("", response_model=list[BeerSchema])
-async def list_all_beers():
-    query = SearchAllBeerQuery()
+async def search_by_criteria(
+    filters: Json = Query(None),
+    orders=Query(None),
+    page_size: int = Query(default=100),
+    page_number: int = Query(default=1),
+):
+    query = SearchBeerByCriteriaQuery(
+        filters=filters,
+        orders=orders,
+        page_size=page_size,
+        page_number=page_number,
+    )
     result = query_bus.ask(query)
     return [beer.to_primitives() for beer in result]
 
 
 @router.get("/{id}", response_model=BeerSchema)
-async def get_beer(
-    id: str,
-):
+async def search(id: str):
     query = FindBeerByIdQuery(id)
     result = query_bus.ask(query)
     return result.to_primitives()
 
 
 @router.post("")
-async def register_beer(
-    beer: RegisterBeerSchema,
-):
+async def register(beer: RegisterBeerSchema):
     command = RegisterBeerCommand(
         beer.name, beer.type, beer.alcohol, beer.description
     )
@@ -51,10 +58,7 @@ async def register_beer(
 
 
 @router.put("/{id}")
-async def update_beer(
-    id: str,
-    beer: UpdateBeerSchema,
-):
+async def update(id: str, beer: UpdateBeerSchema):
     command = UpdateBeerCommand(
         id, beer.name, beer.type, beer.alcohol, beer.description
     )
@@ -63,9 +67,7 @@ async def update_beer(
 
 
 @router.delete("/{id}", response_model=MessageResponseSchema)
-async def delete_beer(
-    id: str,
-):
+async def delete(id: str):
     command = DeleteBeerCommand(id)
     command_bus.dispatch(command)
     return {"message": "Beer deleted"}

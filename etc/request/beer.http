@@ -1,7 +1,7 @@
 @base_url = http://127.0.0.1:8000/api/v1
 
 ###
-GET {{base_url}}/beers
+GET {{base_url}}/beers?filters=[{"field": "name", "operator": "ENDS_WITH", "value": "1"}]
 
 
 ###

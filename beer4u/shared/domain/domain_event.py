@@ -28,12 +28,12 @@ class DomainEvent:
         raise AttributeError("Attributes can be added but not deleted")
 
     def __eq__(self, other: object) -> bool:
-        if isinstance(other, DomainEvent):
-            return self.__dict__ == other.__dict__
-        return NotImplemented
+        if not isinstance(other, DomainEvent):
+            return NotImplemented
+        return self.__dict__ == other.__dict__
 
     def __ne__(self, other: object) -> bool:
-        return not self.__eq__(other)
+        return not self == other
 
     def __hash__(self) -> int:
         return hash(frozenset(self.__dict__.items()))

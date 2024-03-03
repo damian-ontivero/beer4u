@@ -1,7 +1,8 @@
 from configparser import ConfigParser
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase, sessionmaker
+from sqlalchemy import create_engine, 
+from sqlalchemy.orm import DeclarativeBase, sessionmaker, Query
+from sqlalchemy.sql import func
 
 
 def get_config():
@@ -50,5 +51,27 @@ MySqlSession = get_session(
 
 
 class Base(DeclarativeBase):
-    def to_dict(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+    pass
+
+
+FILTER_OPERATOR_MAPPER = {
+    "eq": lambda m, k, v: getattr(m, k) == v,
+    "gt": lambda m, k, v: getattr(m, k) > v,
+    "ge": lambda m, k, v: getattr(m, k) >= v,
+    "lt": lambda m, k, v: getattr(m, k) < v,
+    "le": lambda m, k, v: getattr(m, k) <= v,
+    "in": lambda m, k, v: getattr(m, k).in_(v.split(",")),
+    "btw": lambda m, k, v: getattr(m, k).between(*v.split(",")),
+    "lk": lambda m, k, v: getattr(m, k).ilike(f"%{v}%"),
+}
+
+
+def orm_criteria_converter(query: Query, criteria: dict):
+    """Converts a criteria to an sqlalchemy criteria."""
+    def build_filter(filter: dict):
+        if criteria.has_filter:
+            pass
+
+    def build_sort():
+        if criteria.has_sort:
+            pass

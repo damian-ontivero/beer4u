@@ -37,12 +37,12 @@ class Entity(metaclass=ABCMeta):
         return self._discarded
 
     def __eq__(self, other: object) -> bool:
-        if isinstance(other, self.__class__):
-            return self._id == other._id
-        return NotImplemented
+        if not isinstance(other, Entity):
+            return NotImplemented
+        return self._id == other._id
 
     def __ne__(self, other: object) -> bool:
-        return not self.__eq__(other)
+        return not self == other
 
     def __hash__(self) -> int:
         return hash(self._id)
