@@ -4,6 +4,13 @@ from .orders import Orders
 
 class Criteria:
 
+    __slots__ = (
+        "_filters",
+        "_orders",
+        "_page_size",
+        "_page_number",
+    )
+
     def __init__(
         self,
         filters: Filters,
@@ -74,3 +81,38 @@ class Criteria:
             "page_size": self._page_size,
             "page_number": self._page_number,
         }
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Criteria):
+            return NotImplemented
+        return (
+            self._filters == other.filters
+            and self._orders == other.orders
+            and self._page_size == other.page_size
+            and self._page_number == other.page_number
+        )
+
+    def __ne__(self, other: object) -> bool:
+        return not self == other
+
+    def __hash__(self) -> int:
+        return hash(
+            (
+                self._filters,
+                self._orders,
+                self._page_size,
+                self._page_number,
+            )
+        )
+
+    def __repr__(self) -> str:
+        return (
+            "{c}(filters={filters!r}, orders={orders!r}, "
+            "page_size={page_size!r}, page_number={page_number!r})"
+        ).format(
+            c=self.__class__.__name__,
+            filters=self._filters,
+            orders=self._orders,
+            page_size=self._page_size,
+            page_number=self._page_number,
+        )

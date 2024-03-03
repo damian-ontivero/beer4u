@@ -4,7 +4,10 @@ from .order_type import OrderType
 
 class Order:
 
-    __slots__ = ("_order_by", "_order_type")
+    __slots__ = (
+        "_order_by",
+        "_order_type",
+    )
 
     def __init__(self, order_by: OrderBy, order_type: OrderType) -> None:
         self._order_by = order_by

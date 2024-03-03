@@ -5,7 +5,11 @@ from .filter_value import FilterValue
 
 class Filter:
 
-    __slots__ = ("_field", "_operator", "_value")
+    __slots__ = (
+        "_field",
+        "_operator",
+        "_value",
+    )
 
     def __init__(
         self, field: FilterField, operator: FilterOperator, value: FilterValue

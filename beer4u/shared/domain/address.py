@@ -1,6 +1,11 @@
 class Address:
 
-    __slots__ = ("_street", "_city", "_state", "_zip_code")
+    __slots__ = (
+        "_street",
+        "_city",
+        "_state",
+        "_zip_code",
+    )
 
     def __new__(
         cls, street: str, city: str, state: str, zip_code: str

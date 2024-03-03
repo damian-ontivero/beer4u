@@ -1,5 +1,8 @@
 class Money:
-    __slots__ = ("_currency", "_amount")
+    __slots__ = (
+        "_currency",
+        "_amount",
+    )
 
     def __new__(cls, currency: str, amount: float) -> "Money":
         if not isinstance(currency, str):
