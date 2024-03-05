@@ -15,11 +15,11 @@ class Order:
 
     @property
     def field(self) -> OrderField:
-        return self._field
+        return self._field.value
 
     @property
     def direction(self) -> OrderDirection:
-        return self._direction
+        return self._direction.value
 
     @property
     def is_none(self) -> bool:

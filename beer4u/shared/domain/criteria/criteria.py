@@ -1,5 +1,5 @@
-from .filter import Filter
-from .order import Order
+from .filters import Filters
+from .orders import Orders
 
 
 class Criteria:
@@ -13,17 +13,17 @@ class Criteria:
 
     def __init__(
         self,
-        filters: list[Filter] | None,
-        orders: list[Order] | None,
+        filters: Filters | None,
+        orders: Orders | None,
         page_size: int | None,
         page_number: int | None,
     ):
         if filters is not None:
-            if not all(isinstance(filter, Filter) for filter in filters):
-                raise TypeError("Filters must be a list of Filter")
+            if not isinstance(filters, Filters):
+                raise TypeError("Filters must be a Filters")
         if orders is not None:
-            if not all(isinstance(order, Order) for order in orders):
-                raise TypeError("Orders must be a list of Order")
+            if not isinstance(orders, Orders):
+                raise TypeError("Orders must be a Orders")
         if page_size is not None:
             if not isinstance(page_size, int):
                 raise TypeError("Page size must be an integer")
@@ -40,11 +40,11 @@ class Criteria:
         self._page_number = page_number
 
     @property
-    def filters(self) -> list[Filter] | None:
+    def filters(self) -> Filters | None:
         return self._filters
 
     @property
-    def orders(self) -> list[Order] | None:
+    def orders(self) -> Orders | None:
         return self._orders
 
     @property
@@ -58,25 +58,25 @@ class Criteria:
     @property
     def has_filters(self) -> bool:
         if self._filters is not None:
-            return len(self._filters) > 0
+            return not self._filters.is_empty
 
     @property
     def has_orders(self) -> bool:
         if self._orders is not None:
-            return len(self._orders) > 0
+            return not self._orders.is_empty
 
     @classmethod
     def from_primitives(
         cls,
-        filters: list[dict] | None,
-        orders: list[dict] | None,
+        filters: dict | None,
+        orders: list | None,
         page_size: int | None,
         page_number: int | None,
     ) -> "Criteria":
         if filters is not None:
-            filters = [Filter.from_primitives(**filter) for filter in filters]
+            filters = Filters.from_primitives(**filters)
         if orders is not None:
-            orders = [Order.from_primitives(**order) for order in orders]
+            orders = Orders.from_primitives(orders)
         return cls(filters, orders, page_size, page_number)
 
     def __eq__(self, other: object) -> bool:

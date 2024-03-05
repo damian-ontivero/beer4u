@@ -1,3 +1,4 @@
+from sqlalchemy import and_, or_
 from sqlalchemy.orm import Query
 
 from beer4u.shared.domain.criteria import Criteria
@@ -82,17 +83,32 @@ def criteria_to_sqlalchemy_query(
     query: Query, model: Base, criteria: Criteria
 ):
     if criteria.has_filters:
-        for filter in criteria.filters:
-            filter_operator = FILTER_OPERATOR_MAPPER[filter.operator]
-            query = query.filter(
-                filter_operator(model, filter.field, filter.value)
+        if criteria.filters.conjunction == "AND":
+            filters = and_(
+                *[
+                    FILTER_OPERATOR_MAPPER[filter.operator](
+                        model, filter.field, filter.value
+                    )
+                    for filter in criteria.filters.filter_list
+                ]
             )
+        else:
+            filters = or_(
+                *[
+                    FILTER_OPERATOR_MAPPER[filter.operator](
+                        model, filter.field, filter.value
+                    )
+                    for filter in criteria.filters.filter_list
+                ]
+            )
+        query = query.filter(filters)
 
     if criteria.has_orders:
-        for order in criteria.orders:
+        for order in criteria.orders.order_list:
             query = query.order_by(
-                getattr(model, order.field.value).asc()
-                if order.direction.value == "ASC"
-                else getattr(model, order.field.value).desc()
+                getattr(model, order.field).asc()
+                if order.direction == "ASC"
+                else getattr(model, order.field).desc()
             )
+
     return query

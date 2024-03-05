@@ -5,7 +5,7 @@
 GET {{base_url}}/beers
 
 ###
-GET {{base_url}}/beers?filters=[{"field": "alcohol", "operator": "GT", "value": "5.0"}, {"field": "type", "operator": "NOT_EQUALS", "value": "Lager"}]&orders=[{"field": "alcohol", "direction": "DESC"}]
+GET {{base_url}}/beers?filters={"conjunction": "OR", "filter_list": [{"field": "name", "operator": "EQUALS", "value": "Heineken"}, {"field": "name", "operator": "CONTAINS", "value": "Da"}]}&orders=[{"field": "alcohol", "direction": "ASC"}]
 
 
 ###
