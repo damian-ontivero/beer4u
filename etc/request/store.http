@@ -1,12 +1,28 @@
 @base_url = http://127.0.0.1:8000/api/v1
+@store_id = 07fa72636a9e4a63814bf9811b5353b7
 
 ###
 GET {{base_url}}/stores
 
+###
+GET {{base_url}}/stores?filter={"conjunction": "AND", "conditions": [{"field": "name", "operator": "CONTAINS", "value": "20"}, {"conjunction": "OR", "conditions": [{"field": "phone", "operator": "EQUALS", "value": "12345"}, {"field": "phone", "operator": "EQUALS", "value": "123456"}]}]}&sort=[{"field": "name", "direction": "ASC"}]
+
+# {
+#   "conjunction": "AND",
+#   "conditions": [
+#     { "field": "type", "operator": "EQUALS", "value": "Lager" },
+#     {
+#       "conjunction": "OR",
+#       "conditions": [
+#         { "field": "name", "operator": "CONTAINS", "value": "Mahou" },
+#         { "field": "name", "operator": "CONTAINS", "value": "Heine" }
+#       ]
+#     }
+#   ]
+# }
+
 
 ###
-@store_id = 83279a89fe7247e4a136d233ed182a3b
-
 GET {{base_url}}/stores/{{store_id}}
 
 
@@ -15,7 +31,7 @@ POST {{base_url}}/stores
 Content-Type: application/json
 
 {
-  "name": "Store 1",
+  "name": "Store 202",
   "address": {
     "street": "Rua 1",
     "city": "Cidade 1",
@@ -27,25 +43,21 @@ Content-Type: application/json
 
 
 ###
-@store_id = 83279a89fe7247e4a136d233ed182a3b
-
 PUT {{base_url}}/stores/{{store_id}}
 Content-Type: application/json
 
 {
-  "name": "Store 1 ____",
+  "name": "Store 202",
   "address": {
     "street": "Rua 1",
     "city": "Cidade 1",
     "state": "Estado 1",
     "zip_code": "12345-678"
   },
-  "phone": "1234567890",
+  "phone": "123456",
   "discarded": false
 }
 
 
 ###
-@store_id = 83279a89fe7247e4a136d233ed182a3b
-
 DELETE {{base_url}}/stores/{{store_id}}

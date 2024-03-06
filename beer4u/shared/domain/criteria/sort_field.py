@@ -1,12 +1,12 @@
-class OrderField:
+class SortField:
 
     __slots__ = ("_value",)
 
     def __init__(self, value: str) -> None:
         if not isinstance(value, str):
-            raise TypeError("Filter field must be a string")
+            raise TypeError("Sort field must be a string")
         if not len(value) > 0:
-            raise ValueError("Filter field cannot be empty")
+            raise ValueError("Sort field cannot be empty")
         self._value = value
 
     @property
@@ -14,7 +14,7 @@ class OrderField:
         return self._value
 
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, OrderField):
+        if not isinstance(other, SortField):
             return NotImplemented
         return self._value == other._value
 

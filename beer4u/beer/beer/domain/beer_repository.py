@@ -1,5 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
+from beer4u.shared.domain.criteria import Criteria
+
 from .beer import Beer
 
 FILTER_OPERATOR_MAPPER = {
@@ -22,7 +24,7 @@ class BeerRepository(metaclass=ABCMeta):
     """
 
     @abstractmethod
-    def search_by_criteria(self) -> list[Beer]:
+    def search_by_criteria(self, criteria: Criteria) -> list[Beer]:
         raise NotImplementedError
 
     @abstractmethod

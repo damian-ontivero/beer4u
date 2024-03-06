@@ -5,8 +5,21 @@
 GET {{base_url}}/beers
 
 ###
-GET {{base_url}}/beers?filters={"conjunction": "OR", "filter_list": [{"field": "name", "operator": "EQUALS", "value": "Heineken"}, {"field": "name", "operator": "CONTAINS", "value": "Da"}]}&orders=[{"field": "alcohol", "direction": "ASC"}]
+GET {{base_url}}/beers?filter={"conjunction": "AND", "conditions": [{"field": "type", "operator": "EQUALS", "value": "Lager"}, {"conjunction": "OR", "conditions": [{"field": "name", "operator": "CONTAINS", "value": "Mahou"}, {"field": "name", "operator": "CONTAINS", "value": "Es"}]}]}&sort=[{"field": "alcohol", "direction": "ASC"}]
 
+# {
+#   "conjunction": "AND",
+#   "conditions": [
+#     { "field": "type", "operator": "EQUALS", "value": "Lager" },
+#     {
+#       "conjunction": "OR",
+#       "conditions": [
+#         { "field": "name", "operator": "CONTAINS", "value": "Mahou" },
+#         { "field": "name", "operator": "CONTAINS", "value": "Heine" }
+#       ]
+#     }
+#   ]
+# }
 
 ###
 GET {{base_url}}/beers/{{beer_id}}

@@ -1,7 +1,7 @@
 from sqlalchemy import and_, or_
 from sqlalchemy.orm import Query
 
-from beer4u.shared.domain.criteria import Criteria
+from beer4u.shared.domain.criteria import Condition, Criteria, Filter, Sort
 from beer4u.shared.infrastructure.persistence.sqlite.db import Base
 
 
@@ -82,33 +82,41 @@ FILTER_OPERATOR_MAPPER = {
 def criteria_to_sqlalchemy_query(
     query: Query, model: Base, criteria: Criteria
 ):
-    if criteria.has_filters:
-        if criteria.filters.conjunction == "AND":
-            filters = and_(
-                *[
-                    FILTER_OPERATOR_MAPPER[filter.operator](
-                        model, filter.field, filter.value
-                    )
-                    for filter in criteria.filters.filter_list
-                ]
-            )
-        else:
-            filters = or_(
-                *[
-                    FILTER_OPERATOR_MAPPER[filter.operator](
-                        model, filter.field, filter.value
-                    )
-                    for filter in criteria.filters.filter_list
-                ]
-            )
-        query = query.filter(filters)
+    filters = []
+    if criteria.filter is not None:
+        filters.append(_process_filter(criteria.filter, model))
 
-    if criteria.has_orders:
-        for order in criteria.orders.order_list:
-            query = query.order_by(
-                getattr(model, order.field).asc()
-                if order.direction == "ASC"
-                else getattr(model, order.field).desc()
-            )
+    if filters:
+        query = query.filter(*filters)
+
+    if criteria.sort is not None:
+        for sort in criteria.sort:
+            query = query.order_by(_process_sort(sort, model))
 
     return query
+
+
+def _process_filter(filter: Filter, model: Base):
+    filters = []
+    for condition in filter.conditions:
+        if not hasattr(condition, "conjunction"):
+            filters.append(_process_condition(condition, model))
+        else:
+            filters.append(_process_filter(condition, model))
+    if filter.conjunction == "AND":
+        return and_(*filters)
+    return or_(*filters)
+
+
+def _process_condition(condition: Condition, model: Base):
+    return FILTER_OPERATOR_MAPPER[condition.operator](
+        model, condition.field, condition.value
+    )
+
+
+def _process_sort(sort: Sort, model: Base):
+    return (
+        getattr(model, sort.field).asc()
+        if sort.direction == "ASC"
+        else getattr(model, sort.field).desc()
+    )

@@ -17,9 +17,5 @@
     },
     "isort.args": ["--profile", "black"],
     "black-formatter.args": ["--line-length", "79"],
-    "flake8.ignorePatterns": [
-      "__init__.py",
-      "migrations/*.py",
-    ]
   }
   

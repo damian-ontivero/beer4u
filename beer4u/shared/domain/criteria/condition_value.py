@@ -1,12 +1,12 @@
-class FilterField:
+class ConditionValue:
 
     __slots__ = ("_value",)
 
     def __init__(self, value: str) -> None:
         if not isinstance(value, str):
-            raise TypeError("Filter field must be a string")
+            raise TypeError("Condition value must be a string")
         if not len(value) > 0:
-            raise ValueError("Filter field cannot be empty")
+            raise ValueError("Condition value cannot be empty")
         self._value = value
 
     @property
@@ -14,7 +14,7 @@ class FilterField:
         return self._value
 
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, FilterField):
+        if not isinstance(other, ConditionValue):
             return NotImplemented
         return self._value == other._value
 

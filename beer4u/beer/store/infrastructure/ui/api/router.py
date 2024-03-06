@@ -26,17 +26,12 @@ command_bus: CommandBus = ioc_container.resolve("command_bus")
 
 @router.get("", response_model=list[StoreSchema])
 async def search_by_criteria(
-    filters: Json = Query(None),
-    orders: Json = Query(None),
+    filter: Json = Query(None),
+    sort: Json = Query(None),
     page_size: int = Query(default=100),
     page_number: int = Query(default=1),
 ):
-    query = SearchStoreByCriteriaQuery(
-        filters=filters,
-        orders=orders,
-        page_size=page_size,
-        page_number=page_number,
-    )
+    query = SearchStoreByCriteriaQuery(filter, sort, page_size, page_number)
     result = query_bus.ask(query)
     return [store.to_primitives() for store in result]
 

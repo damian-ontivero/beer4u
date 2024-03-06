@@ -1,34 +1,20 @@
-class OrderDirection:
+class ConditionField:
 
     __slots__ = ("_value",)
 
-    ASC = "ASC"
-    DESC = "DESC"
-    NONE = "NONE"
-
     def __init__(self, value: str) -> None:
         if not isinstance(value, str):
-            raise TypeError("Order direction must be a string")
+            raise TypeError("Condition field must be a string")
         if not len(value) > 0:
-            raise ValueError("Order direction cannot be empty")
-        if value not in [
-            OrderDirection.ASC,
-            OrderDirection.DESC,
-            OrderDirection.NONE,
-        ]:
-            raise ValueError("Invalid order direction")
+            raise ValueError("Condition field cannot be empty")
         self._value = value
 
     @property
     def value(self) -> str:
         return self._value
 
-    @property
-    def is_none(self) -> bool:
-        return self._value == OrderDirection.NONE
-
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, OrderDirection):
+        if not isinstance(other, ConditionField):
             return NotImplemented
         return self._value == other._value
 

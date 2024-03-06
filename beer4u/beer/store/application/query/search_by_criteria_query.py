@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 @dataclass
 class SearchStoreByCriteriaQuery:
-    filters: dict | None
-    orders: list | None
+    filter: dict | None
+    sort: list | None
     page_size: int | None
     page_number: int | None

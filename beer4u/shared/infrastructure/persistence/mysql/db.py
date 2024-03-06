@@ -1,8 +1,7 @@
 from configparser import ConfigParser
 
-from sqlalchemy import create_engine, 
-from sqlalchemy.orm import DeclarativeBase, sessionmaker, Query
-from sqlalchemy.sql import func
+from sqlalchemy import create_engine
+from sqlalchemy.orm import DeclarativeBase, Query, sessionmaker
 
 
 def get_config():
@@ -20,7 +19,7 @@ def get_session(
     db_port: int,
     db_name: str,
     db_pool_size: int,
-    db_auto_commit: bool,
+    db_autocommit: bool,
     db_verbose: bool,
 ):
     """Returns a mysql session."""
@@ -33,7 +32,7 @@ def get_session(
         database_uri, pool_size=db_pool_size, echo=db_verbose
     )
 
-    return sessionmaker(bind=engine, autocommit=db_auto_commit)
+    return sessionmaker(bind=engine, autocommit=db_autocommit)
 
 
 config = get_config()
@@ -68,6 +67,7 @@ FILTER_OPERATOR_MAPPER = {
 
 def orm_criteria_converter(query: Query, criteria: dict):
     """Converts a criteria to an sqlalchemy criteria."""
+
     def build_filter(filter: dict):
         if criteria.has_filter:
             pass

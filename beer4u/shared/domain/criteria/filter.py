@@ -1,73 +1,58 @@
-from .filter_field import FilterField
-from .filter_operator import FilterOperator
-from .filter_value import FilterValue
+from .condition import Condition
+
+type Conditions = list[Condition | Filter]
 
 
 class Filter:
 
-    __slots__ = (
-        "_field",
-        "_operator",
-        "_value",
-    )
-
-    def __init__(
-        self, field: FilterField, operator: FilterOperator, value: FilterValue
-    ) -> None:
-        self._field = field
-        self._operator = operator
-        self._value = value
+    def __init__(self, conjunction: str, conditions: Conditions):
+        if conjunction not in ["AND", "OR"]:
+            raise ValueError("Conjunction must be 'AND' or 'OR'")
+        self._type = type
+        self._conjunction = conjunction
+        self._conditions = conditions
 
     @property
-    def field(self) -> str:
-        return self._field.value
+    def conjunction(self) -> str:
+        return self._conjunction
 
     @property
-    def operator(self) -> str:
-        return self._operator.value
+    def conditions(self) -> list[Condition]:
+        return self._conditions
 
     @property
-    def value(self) -> str:
-        return self._value.value
+    def is_empty(self) -> bool:
+        return len(self._conditions) == 0
 
     @classmethod
-    def from_primitives(
-        cls, field: str, operator: str, value: str
-    ) -> "Filter":
-        return cls(
-            FilterField(field),
-            FilterOperator(operator),
-            FilterValue(value),
-        )
-
-    def to_primitives(self) -> dict:
-        return {
-            "field": self._field.value,
-            "operator": self._operator.value,
-            "value": self._value.value,
-        }
+    def from_primitives(cls, conjunction: str, conditions: list) -> "Filter":
+        _conditions = []
+        for condition in conditions:
+            if "conditions" in condition:
+                _conditions.append(Filter.from_primitives(**condition))
+            else:
+                _conditions.append(Condition.from_primitives(**condition))
+        return cls(conjunction, _conditions)
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Filter):
             return NotImplemented
         return (
-            self._field == other._field
-            and self._operator == other._operator
-            and self._value == other._value
+            self._conjunction == other._conjunction
+            and self._conditions == other._conditions
         )
 
     def __ne__(self, other: object) -> bool:
         return not self == other
 
     def __hash__(self) -> int:
-        return hash((self._field, self._operator, self._value))
+        return hash((self._conjunction, self._conditions))
 
     def __repr__(self) -> str:
         return (
-            "{c}(field={field!r}, operator={operator!r}, value={value!r})"
+            "{c}(conjunction={conjunction!r}, conditions={conditions!r})"
         ).format(
             c=self.__class__.__name__,
-            field=self._field,
-            operator=self._operator,
-            value=self._value,
+            conjunction=self._conjunction,
+            conditions=self._conditions,
         )

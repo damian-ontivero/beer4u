@@ -12,6 +12,6 @@ class SearchStoreByCriteriaQueryHandler(QueryHandler):
 
     def handle(self, query: SearchStoreByCriteriaQuery) -> list[Store]:
         criteria = Criteria.from_primitives(
-            query.filters, query.orders, query.page_size, query.page_number
+            query.filter, query.sort, query.page_size, query.page_number
         )
         return self._repository.search_by_criteria(criteria)

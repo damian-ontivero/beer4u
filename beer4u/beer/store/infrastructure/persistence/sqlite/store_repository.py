@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
 
 from beer4u.beer.store.domain import Store, StoreRepository
+from beer4u.shared.domain.criteria import Criteria
+from beer4u.shared.infrastructure.criteria import criteria_to_sqlalchemy_query
 
 from .store import StoreSqliteModel
 
@@ -10,9 +12,23 @@ class SqliteStoreRepository(StoreRepository):
     def __init__(self, session: Session) -> None:
         self._session = session
 
-    def search_by_criteria(self) -> list[Store]:
+    def search_by_criteria(self, criteria: Criteria) -> list[Store]:
         with self._session() as session:
-            pass
+            query = session.query(StoreSqliteModel)
+            query = criteria_to_sqlalchemy_query(
+                query, StoreSqliteModel, criteria
+            )
+            stores_db = query.all()
+            return [
+                Store.from_primitives(
+                    store_db.id,
+                    store_db.name,
+                    store_db.address,
+                    store_db.phone,
+                    store_db.discarded,
+                )
+                for store_db in stores_db
+            ]
 
     def search_all(self) -> list[Store]:
         with self._session() as session:

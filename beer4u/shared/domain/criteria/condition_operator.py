@@ -1,4 +1,4 @@
-class FilterOperator:
+class ConditionOperator:
 
     __slots__ = ("_value",)
 
@@ -19,22 +19,22 @@ class FilterOperator:
 
     def __init__(self, value: str) -> None:
         if value not in (
-            FilterOperator.EQUALS,
-            FilterOperator.NOT_EQUALS,
-            FilterOperator.CONTAINS,
-            FilterOperator.NOT_CONTAINS,
-            FilterOperator.IS_ANY_OF,
-            FilterOperator.IS_NOT_ANY_OF,
-            FilterOperator.IS_EMPTY,
-            FilterOperator.IS_NOT_EMPTY,
-            FilterOperator.STARTS_WITH,
-            FilterOperator.ENDS_WITH,
-            FilterOperator.GT,
-            FilterOperator.GE,
-            FilterOperator.LT,
-            FilterOperator.LE,
+            ConditionOperator.EQUALS,
+            ConditionOperator.NOT_EQUALS,
+            ConditionOperator.CONTAINS,
+            ConditionOperator.NOT_CONTAINS,
+            ConditionOperator.IS_ANY_OF,
+            ConditionOperator.IS_NOT_ANY_OF,
+            ConditionOperator.IS_EMPTY,
+            ConditionOperator.IS_NOT_EMPTY,
+            ConditionOperator.STARTS_WITH,
+            ConditionOperator.ENDS_WITH,
+            ConditionOperator.GT,
+            ConditionOperator.GE,
+            ConditionOperator.LT,
+            ConditionOperator.LE,
         ):
-            raise ValueError("Invalid filter operator")
+            raise ValueError("Invalid condition operator")
         self._value = value
 
     @property
@@ -42,7 +42,7 @@ class FilterOperator:
         return self._value
 
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, FilterOperator):
+        if not isinstance(other, ConditionOperator):
             return NotImplemented
         return self._value == other._value
 

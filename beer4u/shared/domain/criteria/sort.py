@@ -1,24 +1,24 @@
-from .order_direction import OrderDirection
-from .order_field import OrderField
+from .sort_direction import SortDirection
+from .sort_field import SortField
 
 
-class Order:
+class Sort:
 
     __slots__ = (
         "_field",
         "_direction",
     )
 
-    def __init__(self, field: OrderField, direction: OrderDirection) -> None:
+    def __init__(self, field: SortField, direction: SortDirection) -> None:
         self._field = field
         self._direction = direction
 
     @property
-    def field(self) -> OrderField:
+    def field(self) -> str:
         return self._field.value
 
     @property
-    def direction(self) -> OrderDirection:
+    def direction(self) -> str:
         return self._direction.value
 
     @property
@@ -26,14 +26,14 @@ class Order:
         return self._direction.is_none
 
     @staticmethod
-    def none() -> "Order":
-        return Order(OrderField(""), OrderDirection("NONE"))
+    def none() -> "Sort":
+        return Sort(SortField(""), SortDirection("NONE"))
 
     @classmethod
-    def from_primitives(cls, field: str | None, direction: str) -> "Order":
+    def from_primitives(cls, field: str | None, direction: str) -> "Sort":
         if field is None:
             return cls.none()
-        return cls(OrderField(field), OrderDirection(direction))
+        return cls(SortField(field), SortDirection(direction))
 
     def to_primitives(self) -> dict:
         return {
@@ -42,7 +42,7 @@ class Order:
         }
 
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, Order):
+        if not isinstance(other, Sort):
             return NotImplemented
         return (
             self._field == other._field and self._direction == other._direction

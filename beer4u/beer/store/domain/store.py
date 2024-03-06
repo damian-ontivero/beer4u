@@ -84,6 +84,7 @@ class Store(AggregateRoot):
         name: str | None = None,
         address: dict | None = None,
         phone: str | None = None,
+        discarded: bool | None = None,
     ) -> None:
         if name is not None:
             if not self._name == name:
@@ -99,6 +100,9 @@ class Store(AggregateRoot):
         if phone is not None:
             if not self._phone == phone:
                 self._phone = phone
+        if discarded is not None:
+            if not self.discarded == discarded:
+                self.discarded = discarded
 
     def discard(self) -> None:
         super().discard()
