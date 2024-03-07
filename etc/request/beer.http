@@ -21,6 +21,8 @@ GET {{base_url}}/beers?filter={"conjunction": "AND", "conditions": [{"field": "t
 #   ]
 # }
 
+# where type = 'Lager' AND (name LIKE '%Mahou%' OR name LIKE '%Heine%')
+
 ###
 GET {{base_url}}/beers/{{beer_id}}
 
