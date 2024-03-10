@@ -19,6 +19,7 @@ class SqliteBeerRepository(BeerRepository):
                 query, BeerSqliteModel, criteria
             )
             beers_db = query.all()
+
             return [
                 Beer.from_primitives(
                     beer_db.id,
@@ -33,7 +34,9 @@ class SqliteBeerRepository(BeerRepository):
 
     def search_all(self) -> list[Beer]:
         with self._session() as session:
-            beers_db = session.query(BeerSqliteModel).all()
+            query = session.query(BeerSqliteModel)
+            beers_db = query.all()
+
             return [
                 Beer.from_primitives(
                     beer_db.id,
@@ -48,7 +51,8 @@ class SqliteBeerRepository(BeerRepository):
 
     def search(self, id: str) -> Beer | None:
         with self._session() as session:
-            beer_db = session.query(BeerSqliteModel).get(id)
+            beer_db = session.get(BeerSqliteModel, id)
+
             if beer_db is not None:
                 return Beer.from_primitives(
                     beer_db.id,
@@ -65,7 +69,8 @@ class SqliteBeerRepository(BeerRepository):
 
     def save(self, beer: Beer) -> None:
         with self._session() as session:
-            beer_db = session.query(BeerSqliteModel).get(beer.id.value)
+            beer_db = session.get(BeerSqliteModel, beer.id.value)
+
             if beer_db is not None:
                 beer_db.name = beer.name
                 beer_db.type = beer.type
@@ -86,6 +91,6 @@ class SqliteBeerRepository(BeerRepository):
 
     def delete(self, id: str) -> None:
         with self._session() as session:
-            beer_db = session.query(BeerSqliteModel).get(id)
+            beer_db = session.get(BeerSqliteModel, id)
             session.delete(beer_db)
             session.commit()

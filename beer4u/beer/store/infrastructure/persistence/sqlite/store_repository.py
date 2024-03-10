@@ -19,6 +19,7 @@ class SqliteStoreRepository(StoreRepository):
                 query, StoreSqliteModel, criteria
             )
             stores_db = query.all()
+
             return [
                 Store.from_primitives(
                     store_db.id,
@@ -32,7 +33,9 @@ class SqliteStoreRepository(StoreRepository):
 
     def search_all(self) -> list[Store]:
         with self._session() as session:
-            stores_db = session.query(StoreSqliteModel).all()
+            query = session.query(StoreSqliteModel)
+            stores_db = query.all()
+
             return [
                 Store.from_primitives(
                     store_db.id,
@@ -46,7 +49,8 @@ class SqliteStoreRepository(StoreRepository):
 
     def search(self, id: str) -> Store | None:
         with self._session() as session:
-            store_db = session.query(StoreSqliteModel).get(id)
+            store_db = session.get(StoreSqliteModel, id)
+
             if store_db is not None:
                 return Store.from_primitives(
                     store_db.id,
@@ -62,8 +66,9 @@ class SqliteStoreRepository(StoreRepository):
 
     def save(self, store: Store) -> None:
         with self._session() as session:
-            store_db = session.query(StoreSqliteModel).get(store.id.value)
-            if store_db:
+            store_db = session.get(StoreSqliteModel, store.id.value)
+
+            if store_db is not None:
                 store_db.name = store.name
                 store_db.address = store.address.to_primitives()
                 store_db.phone = store.phone
@@ -81,6 +86,6 @@ class SqliteStoreRepository(StoreRepository):
 
     def delete(self, id: str) -> None:
         with self._session() as session:
-            store_db = session.query(StoreSqliteModel).get(id)
+            store_db = session.get(StoreSqliteModel, id)
             session.delete(store_db)
             session.commit()
