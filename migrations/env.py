@@ -3,9 +3,9 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
-import beer4u.beer.beer.infrastructure.persistence.sqlite  # noqa: F401
-import beer4u.beer.store.infrastructure.persistence.sqlite  # noqa: F401
-from beer4u.shared.infrastructure.persistence.sqlite.db import Base
+import src.contexts.beer.beer.infrastructure.persistence.sqlite  # noqa: F401
+import src.contexts.beer.store.infrastructure.persistence.sqlite  # noqa: F401
+from src.contexts.shared.infrastructure.persistence.sqlite.db import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

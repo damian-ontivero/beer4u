@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Damian Ontivero <damian.ontivero@outlook.com>"]
 readme = "README.md"
-packages = [{include = "beer4u"}]
+packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"

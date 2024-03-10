@@ -1,8 +1,8 @@
-from beer4u.beer.store.application.command import (
+from src.contexts.beer.store.application.command import (
     RegisterStoreCommand,
     RegisterStoreCommandHandler,
 )
-from tests.utils.factories.store_factory import StoreFactory
+from tests.utils.factories.store import StoreFactory
 
 
 def test_register__ok(mock_store_repository):
