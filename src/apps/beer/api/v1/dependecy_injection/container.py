@@ -15,8 +15,8 @@ class DIContainer:
 
 class DependencyNotRegisteredException(Exception):
 
-    def __init__(self, dependency):
+    def __init__(self, dependency: str) -> None:
         self._dependency = dependency
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Dependency {self._dependency} is not registered"
