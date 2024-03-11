@@ -1,22 +1,26 @@
-class DIContainer:
+import os
+
+import yaml
+
+
+class Container:
 
     def __init__(self):
+        self._base_path = os.path.dirname(os.path.abspath(__file__))
         self._dependencies = {}
 
-    def register(self, dependency, implementation):
-        self._dependencies[dependency] = implementation
+    def configure(self, filename: str):
+        resources = yaml.safe_load(
+            open(os.path.join(self._base_path, filename))
+        )
+        self._configure_resources(resources.get("resources", []))
 
-    def resolve(self, dependency):
-        implementation = self._dependencies.get(dependency)
-        if implementation is None:
-            raise DependencyNotRegisteredException(dependency)
-        return implementation
+    def _configure_resources(self, resources: list):
+        for resource in resources:
+            services = yaml.safe_load(
+                open(os.path.join(self._base_path, resource))
+            )
 
 
-class DependencyNotRegisteredException(Exception):
-
-    def __init__(self, dependency: str) -> None:
-        self._dependency = dependency
-
-    def __str__(self) -> str:
-        return f"Dependency {self._dependency} is not registered"
+container = Container()
+container.configure("config.yaml")

@@ -1,0 +1,4 @@
+resources:
+  - ./apps/application.yaml
+  # - ./contexts/beer/application.yaml
+  # - ./contexts/shared/application.yaml

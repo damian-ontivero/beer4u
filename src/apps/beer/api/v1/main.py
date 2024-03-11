@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from .exception import EXCEPTION_TO_HTTP_STATUS_CODE
-from .routers import beer_router, health_router, store_router
+from .routers import beer_router, health_check_router, store_router
 
 app = FastAPI(
     title="Beer4U API",
@@ -24,7 +24,7 @@ app.add_middleware(
 
 
 # Routers
-app.include_router(router=health_router)
+app.include_router(router=health_check_router)
 # app.include_router(router=beer_router)
 # app.include_router(router=store_router)
 
