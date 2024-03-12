@@ -1,25 +1,27 @@
 class Service:
 
-    def __init__(self, class_, factory_method, arguments, tags):
+    def __init__(
+        self, class_: str, factory_method: str, arguments: list, tags: list
+    ):
         self._class_ = class_
         self._factory_method = factory_method
         self._arguments = arguments
         self._tags = tags
 
     @property
-    def class_(self):
+    def class_(self) -> str:
         return self._class_
 
     @property
-    def factory_method(self):
+    def factory_method(self) -> str:
         return self._factory_method
 
     @property
-    def arguments(self):
+    def arguments(self) -> list:
         return self._arguments
 
     @property
-    def tags(self):
+    def tags(self) -> list:
         return self._tags
 
     def __repr__(self) -> str:

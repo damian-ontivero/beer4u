@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Query
 from pydantic import Json
 
-from src.apps.beer.api.v1.dependecy_injection.container import container
 from src.contexts.beer.beer.application.command import (
     DeleteBeerCommand,
     RegisterBeerCommand,
@@ -15,6 +14,7 @@ from src.contexts.beer.beer.domain.beer import Beer
 from src.contexts.shared.domain.bus.command import CommandBus
 from src.contexts.shared.domain.bus.query import QueryBus
 
+from ..dependecy_injection import container_ as container
 from ..schemas.beer import BeerSchema, RegisterBeerSchema, UpdateBeerSchema
 from ..schemas.common import MessageResponseSchema
 

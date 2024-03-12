@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Depends, status
 
-from src.apps.beer.api.v1.dependecy_injection.container import container
-
 from ..controllers import HealthCheckController
+from ..dependecy_injection import container_ as container
 
 router = APIRouter(tags=["Health check"])
 

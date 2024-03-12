@@ -1,4 +1,4 @@
-resources:
-  - ./contexts/shared/services.yaml
-  - ./contexts/beer/services.yaml
-  - ./apps/services.yaml
+imports:
+  - { resource: ./contexts/shared/services.yaml }
+  - { resource: ./contexts/beer/services.yaml }
+  - { resource: ./apps/services.yaml }

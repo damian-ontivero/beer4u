@@ -14,7 +14,7 @@ from src.contexts.beer.store.domain.store import Store
 from src.contexts.shared.domain.bus.command import CommandBus
 from src.contexts.shared.domain.bus.query import QueryBus
 
-from ..dependecy_injection.container import container
+from ..dependecy_injection import container_ as container
 from ..schemas.common import MessageResponseSchema
 from ..schemas.store import RegisterStoreSchema, StoreSchema, UpdateStoreSchema
 
