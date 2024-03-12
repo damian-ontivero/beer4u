@@ -99,6 +99,3 @@ class Beer(AggregateRoot):
         if description is not None:
             if not self._description == description:
                 self._description = description
-
-    def discard(self) -> None:
-        super().discard()

@@ -4,17 +4,6 @@ from src.contexts.shared.domain.criteria import Criteria
 
 from .beer import Beer
 
-FILTER_OPERATOR_MAPPER = {
-    "eq": lambda m, k, v: getattr(m, k) == v,
-    "gt": lambda m, k, v: getattr(m, k) > v,
-    "ge": lambda m, k, v: getattr(m, k) >= v,
-    "lt": lambda m, k, v: getattr(m, k) < v,
-    "le": lambda m, k, v: getattr(m, k) <= v,
-    "in": lambda m, k, v: getattr(m, k).in_(v.split(",")),
-    "btw": lambda m, k, v: getattr(m, k).between(*v.split(",")),
-    "lk": lambda m, k, v: getattr(m, k).ilike(f"%{v}%"),
-}
-
 
 class BeerRepository(metaclass=ABCMeta):
     """

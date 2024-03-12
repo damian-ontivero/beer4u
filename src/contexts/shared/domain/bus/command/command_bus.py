@@ -11,4 +11,9 @@ class CommandBus(metaclass=ABCMeta):
 
 
 class RegisteredCommandError(Exception):
-    pass
+
+    def __init__(self, command: Command) -> None:
+        self._command = command
+
+    def __str__(self) -> str:
+        return f"Command: {self._command.__class__.__name__!r} not registered"

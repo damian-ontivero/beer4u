@@ -25,8 +25,8 @@ app.add_middleware(
 
 # Routers
 app.include_router(router=health_check_router)
-# app.include_router(router=beer_router)
-# app.include_router(router=store_router)
+app.include_router(router=beer_router)
+app.include_router(router=store_router)
 
 
 # Setups the exception handler

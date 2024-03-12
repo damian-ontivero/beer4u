@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Query
 from pydantic import Json
 
+from src.apps.beer.api.v1.dependecy_injection.container import container
 from src.contexts.beer.beer.application.command import (
     DeleteBeerCommand,
     RegisterBeerCommand,
@@ -10,6 +11,7 @@ from src.contexts.beer.beer.application.query import (
     FindBeerByIdQuery,
     SearchBeerByCriteriaQuery,
 )
+from src.contexts.beer.beer.domain.beer import Beer
 from src.contexts.shared.domain.bus.command import CommandBus
 from src.contexts.shared.domain.bus.query import QueryBus
 
@@ -17,6 +19,8 @@ from ..schemas.beer import BeerSchema, RegisterBeerSchema, UpdateBeerSchema
 from ..schemas.common import MessageResponseSchema
 
 router = APIRouter(prefix="/beers", tags=["Beers"])
+query_bus: QueryBus = container.get("QueryBus")
+command_bus: CommandBus = container.get("CommandBus")
 
 
 @router.get("", response_model=list[BeerSchema])
@@ -26,17 +30,16 @@ async def search_by_criteria(
     page_size: int = Query(default=100),
     page_number: int = Query(default=1),
 ):
-
     query = SearchBeerByCriteriaQuery(filter, sort, page_size, page_number)
-    result = query_bus.ask(query)
-    return [beer.to_primitives() for beer in result]
+    beers: list[Beer] = query_bus.ask(query)
+    return [beer.to_primitives() for beer in beers]
 
 
 @router.get("/{id}", response_model=BeerSchema)
 async def search(id: str):
     query = FindBeerByIdQuery(id)
-    result = query_bus.ask(query)
-    return result.to_primitives()
+    beer: Beer = query_bus.ask(query)
+    return beer.to_primitives()
 
 
 @router.post("")

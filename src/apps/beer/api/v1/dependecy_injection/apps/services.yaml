@@ -1,0 +1,4 @@
+services:
+  HealthCheckController:
+    class: src.apps.beer.api.v1.controllers.health_check_controller.HealthCheckController
+    arguments: []

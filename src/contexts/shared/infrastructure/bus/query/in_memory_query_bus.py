@@ -8,11 +8,14 @@ from src.contexts.shared.domain.bus.query import (
 
 class InMemoryQueryBus(QueryBus):
 
-    def __init__(self, query_handler_map: dict[Query, QueryHandler]) -> None:
-        self._query_handler_map = query_handler_map
+    def __init__(self, query_handlers: list[QueryHandler]) -> None:
+        self._query_handler_map = {
+            query_handler.subscribed_to: query_handler
+            for query_handler in query_handlers
+        }
 
     def ask(self, query: Query):
         handler = self._query_handler_map.get(type(query))
         if handler is None:
-            raise RegisteredQueryError(f"Query: {query!r} not registered")
+            raise RegisteredQueryError(query)
         return handler.handle(query)

@@ -29,7 +29,7 @@ class Entity(metaclass=ABCMeta):
 
     @property
     def id(self) -> EntityId:
-        self._check_not_discarded()
+        # self._check_not_discarded()
         return self._id
 
     @property
@@ -48,8 +48,10 @@ class Entity(metaclass=ABCMeta):
         return hash(self._id)
 
     def _check_not_discarded(self) -> None:
-        if self.discarded:
-            raise DiscardedEntityError("Attempt to use {}".format(repr(self)))
+        if self._discarded:
+            raise DiscardedEntityError(
+                f"Entity: {self._id.value!r} is discarded"
+            )
 
     def discard(self) -> None:
         self._check_not_discarded()

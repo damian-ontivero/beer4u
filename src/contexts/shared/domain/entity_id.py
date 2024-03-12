@@ -38,4 +38,6 @@ class EntityId:
         return hash(self._value)
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}(value={self._value!r})"
+        return ("{c}(value={value!r})").format(
+            c=self.__class__.__name__, value=self._value
+        )

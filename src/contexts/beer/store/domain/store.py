@@ -103,6 +103,3 @@ class Store(AggregateRoot):
         if discarded is not None:
             if not self.discarded == discarded:
                 self.discarded = discarded
-
-    def discard(self) -> None:
-        super().discard()

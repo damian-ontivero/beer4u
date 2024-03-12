@@ -7,6 +7,7 @@ class BeerSchema(BaseModel):
     type: str
     alcohol: float
     description: str
+    discarded: bool
 
 
 class RegisterBeerSchema(BaseModel):

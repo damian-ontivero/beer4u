@@ -1,38 +1,22 @@
-from configparser import ConfigParser
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 
-def get_config():
-    """Returns a config parser."""
-    config = ConfigParser()
-    config.read("beer4u/config.ini")
+class SQLiteDB:
 
-    return config
+    @staticmethod
+    def create_session(
+        db_uri: str,
+        db_autocommit: bool,
+        db_verbose: bool,
+    ):
+        engine = create_engine(
+            db_uri,
+            connect_args={"check_same_thread": False},
+            echo=db_verbose,
+        )
 
-
-def get_session(
-    db_autocommit: bool,
-    db_verbose: bool,
-):
-    database_uri = "sqlite:///./database.db"
-
-    engine = create_engine(
-        database_uri,
-        connect_args={"check_same_thread": False},
-        echo=db_verbose,
-    )
-
-    return sessionmaker(bind=engine, autocommit=db_autocommit)
-
-
-config = get_config()
-
-SqliteSession = get_session(
-    config.getboolean("database", "autocommit"),
-    config.getboolean("database", "verbose"),
-)
+        return sessionmaker(bind=engine, autocommit=db_autocommit)
 
 
 class Base(DeclarativeBase):
