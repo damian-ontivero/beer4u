@@ -3,8 +3,7 @@ import re
 
 import pika
 
-from src.contexts.shared.domain import DomainEvent
-from src.contexts.shared.domain.bus.event import EventBus
+from src.contexts.shared.domain.bus.event import DomainEvent, EventBus
 
 
 class RabbitMQEventBus(EventBus):

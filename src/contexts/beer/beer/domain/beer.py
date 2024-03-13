@@ -12,7 +12,7 @@ class Beer(AggregateRoot):
         description: str,
         discarded: bool = False,
     ) -> None:
-        super().__init__(id=id, discarded=discarded)
+        super().__init__(id, discarded)
         self._name = name
         self._type = type
         self._alcohol = alcohol

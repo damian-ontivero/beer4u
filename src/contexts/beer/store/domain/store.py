@@ -11,7 +11,7 @@ class Store(AggregateRoot):
         phone: str,
         discarded: bool,
     ) -> None:
-        super().__init__(id=id, discarded=discarded)
+        super().__init__(id, discarded)
         self._name = name
         self._address = address
         self._phone = phone

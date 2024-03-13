@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from src.contexts.shared.domain import DomainEvent
+from .domain_event import DomainEvent
 
 
 class EventBus(metaclass=ABCMeta):

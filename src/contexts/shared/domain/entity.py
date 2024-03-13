@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from src.contexts.shared.domain.domain_event import DomainEvent
+from src.contexts.shared.domain.bus.event.domain_event import DomainEvent
 from src.contexts.shared.domain.entity_id import EntityId
 
 
