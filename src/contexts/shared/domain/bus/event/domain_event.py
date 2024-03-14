@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 
 class DomainEvent:
@@ -14,7 +14,7 @@ class DomainEvent:
     """
 
     def __init__(self, **kwargs) -> None:
-        self.__dict__["occurred_on"] = datetime.utcnow().isoformat()
+        self.__dict__["occurred_on"] = datetime.datetime.now(datetime.UTC)
         self.__dict__.update(kwargs)
 
     def __setattr__(self, name: str, value: object) -> None:
