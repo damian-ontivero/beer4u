@@ -62,7 +62,7 @@ class Beer(AggregateRoot):
         discarded: bool,
     ) -> "Beer":
         return cls(
-            EntityId.from_text(id),
+            EntityId(id),
             name,
             type,
             alcohol,

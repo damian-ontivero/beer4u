@@ -14,9 +14,8 @@ from src.contexts.beer.beer.domain.beer import Beer
 from src.contexts.shared.domain.bus.command import CommandBus
 from src.contexts.shared.domain.bus.query import QueryBus
 
-from ..dependecy_injection import container_ as container
+from ..dependecy_injection import container
 from ..schemas.beer import BeerSchema, RegisterBeerSchema, UpdateBeerSchema
-from ..schemas.common import MessageResponseSchema
 
 router = APIRouter(prefix="/beers", tags=["Beers"])
 query_bus: QueryBus = container.get("QueryBus")
@@ -60,7 +59,7 @@ async def update(id: str, beer: UpdateBeerSchema):
     return {"message": "Beer updated"}
 
 
-@router.delete("/{id}", response_model=MessageResponseSchema)
+@router.delete("/{id}")
 async def delete(id: str):
     command = DeleteBeerCommand(id)
     command_bus.dispatch(command)

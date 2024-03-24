@@ -6,15 +6,6 @@ from .store import Store
 
 
 class StoreRepository(metaclass=ABCMeta):
-    """
-    Interface for Store repositories.
-    This interface should be implemented by any repository
-    that is going to be used to retrieve and persist Store instances.
-    """
-
-    @abstractmethod
-    def search_by_criteria(self, criteria: Criteria) -> list[Store]:
-        raise NotImplementedError
 
     @abstractmethod
     def search_all(self) -> list[Store]:
@@ -22,6 +13,10 @@ class StoreRepository(metaclass=ABCMeta):
 
     @abstractmethod
     def search(self, id: str) -> Store | None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def matching(self, criteria: Criteria) -> list[Store]:
         raise NotImplementedError
 
     @abstractmethod

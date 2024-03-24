@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, status
 
 from ..controllers import HealthCheckController
-from ..dependecy_injection import container_ as container
+from ..dependecy_injection import container
 
 router = APIRouter(tags=["Health check"])
 

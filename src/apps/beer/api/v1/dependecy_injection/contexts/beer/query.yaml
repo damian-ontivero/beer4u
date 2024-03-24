@@ -1,0 +1,37 @@
+services:
+  # Query Handlers
+  SearchBeerByCriteriaQueryHandler:
+    module: src.contexts.beer.beer.application.query.search_by_criteria_query_handler
+    class:
+      name: SearchBeerByCriteriaQueryHandler
+      arguments:
+        - !ref BeerRepository
+    tags:
+      - name: query_handler
+
+  FindBeerByIdQueryHandler:
+    module: src.contexts.beer.beer.application.query.find_by_id_query_handler
+    class:
+      name: FindBeerByIdQueryHandler
+      arguments:
+        - !ref BeerRepository
+    tags:
+      - name: query_handler
+
+  SearchStoreByCriteriaQueryHandler:
+    module: src.contexts.beer.store.application.query.search_by_criteria_query_handler
+    class:
+      name: SearchStoreByCriteriaQueryHandler
+      arguments:
+        - !ref StoreRepository
+    tags:
+      - name: query_handler
+
+  FindStoreByIdQueryHandler:
+    module: src.contexts.beer.store.application.query.find_by_id_query_handler
+    class:
+      name: FindStoreByIdQueryHandler
+      arguments:
+        - !ref StoreRepository
+    tags:
+      - name: query_handler

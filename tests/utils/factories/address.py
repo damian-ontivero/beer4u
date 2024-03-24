@@ -4,6 +4,7 @@ from src.contexts.shared.domain.address import Address
 
 
 class AddressFactory(factory.Factory):
+
     class Meta:
         model = Address
 

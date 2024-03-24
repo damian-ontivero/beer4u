@@ -14,26 +14,6 @@ class SqliteBeerRepository(BeerRepository):
     def __init__(self, session: Session) -> None:
         self._session = session
 
-    def search_by_criteria(self, criteria: Criteria) -> list[Beer]:
-        with self._session() as session:
-            query = session.query(BeerSqliteModel)
-            query = criteria_to_sqlalchemy_query(
-                query, BeerSqliteModel, criteria
-            )
-            beers_db = query.all()
-
-            return [
-                Beer.from_primitives(
-                    beer_db.id,
-                    beer_db.name,
-                    beer_db.type,
-                    beer_db.alcohol,
-                    beer_db.description,
-                    beer_db.discarded,
-                )
-                for beer_db in beers_db
-            ]
-
     def search_all(self) -> list[Beer]:
         with self._session() as session:
             query = session.query(BeerSqliteModel)
@@ -64,6 +44,26 @@ class SqliteBeerRepository(BeerRepository):
                     beer_db.description,
                     beer_db.discarded,
                 )
+
+    def matching(self, criteria: Criteria) -> list[Beer]:
+        with self._session() as session:
+            query = session.query(BeerSqliteModel)
+            query = criteria_to_sqlalchemy_query(
+                query, BeerSqliteModel, criteria
+            )
+            beers_db = query.all()
+
+            return [
+                Beer.from_primitives(
+                    beer_db.id,
+                    beer_db.name,
+                    beer_db.type,
+                    beer_db.alcohol,
+                    beer_db.description,
+                    beer_db.discarded,
+                )
+                for beer_db in beers_db
+            ]
 
     def count(self) -> int:
         with self._session() as session:

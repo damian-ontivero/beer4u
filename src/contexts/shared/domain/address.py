@@ -49,12 +49,6 @@ class Address:
     def zip_code(self) -> str:
         return self._zip_code
 
-    @classmethod
-    def from_primitives(
-        cls, street: str, city: str, state: str, zip_code: str
-    ) -> "Address":
-        return cls(street, city, state, zip_code)
-
     def to_primitives(self) -> dict:
         return {
             "street": self.street,

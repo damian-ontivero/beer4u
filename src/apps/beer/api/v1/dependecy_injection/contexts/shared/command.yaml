@@ -1,0 +1,7 @@
+services:
+  CommandBus:
+    module: src.contexts.shared.infrastructure.bus.command.in_memory_command_bus
+    class:
+      name: InMemoryCommandBus
+      arguments:
+        - !tagged command_handler

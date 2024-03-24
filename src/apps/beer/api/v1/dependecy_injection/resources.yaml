@@ -1,4 +1,0 @@
-imports:
-  - { resource: ./contexts/shared/services.yaml }
-  - { resource: ./contexts/beer/services.yaml }
-  - { resource: ./apps/services.yaml }

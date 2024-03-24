@@ -1,0 +1,55 @@
+services:
+  # Command Handlers
+  RegisterBeerCommandHandler:
+    module: src.contexts.beer.beer.application.command.register_command_handler
+    class:
+      name: RegisterBeerCommandHandler
+      arguments:
+        - !ref BeerRepository
+    tags:
+      - name: command_handler
+
+  UpdateBeerCommandHandler:
+    module: src.contexts.beer.beer.application.command.update_command_handler
+    class:
+      name: UpdateBeerCommandHandler
+      arguments:
+        - !ref BeerRepository
+    tags:
+      - name: command_handler
+
+  DeleteBeerCommandHandler:
+    module: src.contexts.beer.beer.application.command.delete_command_handler
+    class:
+      name: DeleteBeerCommandHandler
+      arguments:
+        - !ref BeerRepository
+    tags:
+      - name: command_handler
+
+  RegisterStoreCommandHandler:
+    module: src.contexts.beer.store.application.command.register_command_handler
+    class:
+      name: RegisterStoreCommandHandler
+      arguments:
+        - !ref StoreRepository
+    tags:
+      - name: command_handler
+
+  UpdateStoreCommandHandler:
+    module: src.contexts.beer.store.application.command.update_command_handler
+    class:
+      name: UpdateStoreCommandHandler
+      arguments:
+        - !ref StoreRepository
+    tags:
+      - name: command_handler
+
+  DeleteStoreCommandHandler:
+    module: src.contexts.beer.store.application.command.delete_command_handler
+    class:
+      name: DeleteStoreCommandHandler
+      arguments:
+        - !ref StoreRepository
+    tags:
+      - name: command_handler

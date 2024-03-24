@@ -1,6 +1,8 @@
-from .container import Container
-from .yaml_loader import YAMLLoader
+import os
 
-container_ = Container()
-loader = YAMLLoader(container_)
-loader.load("./resources.yaml")
+from ditainer.container import Container
+from ditainer.loader import YAMLLoader
+
+container = Container()
+loader = YAMLLoader(container)
+loader.load(os.path.join(os.path.dirname(__file__), "imports.yaml"))

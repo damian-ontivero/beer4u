@@ -5,6 +5,7 @@ from tests.utils.factories.entity_id import EntityIdFactory
 
 
 class BeerFactory(factory.Factory):
+
     class Meta:
         model = Beer
 

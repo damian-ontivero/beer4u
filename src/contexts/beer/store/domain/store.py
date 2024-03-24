@@ -38,7 +38,7 @@ class Store(AggregateRoot):
         return cls(
             EntityId.generate(),
             name,
-            Address.from_primitives(
+            Address(
                 address.get("street"),
                 address.get("city"),
                 address.get("state"),
@@ -58,9 +58,9 @@ class Store(AggregateRoot):
         discarded: bool,
     ) -> "Store":
         return cls(
-            EntityId.from_text(id),
+            EntityId(id),
             name,
-            Address.from_primitives(
+            Address(
                 address.get("street"),
                 address.get("city"),
                 address.get("state"),
@@ -91,7 +91,7 @@ class Store(AggregateRoot):
                 self._name = name
         if address is not None:
             if not self._address == address:
-                self._address = Address.from_primitives(
+                self._address = Address(
                     address.get("street"),
                     address.get("city"),
                     address.get("state"),

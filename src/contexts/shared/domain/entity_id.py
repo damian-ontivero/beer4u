@@ -5,14 +5,6 @@ class EntityId:
 
     __slots__ = ("_value",)
 
-    @classmethod
-    def generate(cls) -> "EntityId":
-        return cls(uuid4().hex)
-
-    @classmethod
-    def from_text(cls, text: str) -> "EntityId":
-        return cls(text)
-
     def __new__(cls, value: str) -> "EntityId":
         if not isinstance(value, str):
             raise TypeError("Entity Id must be a string")
@@ -25,6 +17,10 @@ class EntityId:
     @property
     def value(self) -> str:
         return self._value
+
+    @classmethod
+    def generate(cls) -> "EntityId":
+        return cls(uuid4().hex)
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, EntityId):
@@ -39,5 +35,6 @@ class EntityId:
 
     def __repr__(self) -> str:
         return ("{c}(value={value!r})").format(
-            c=self.__class__.__name__, value=self._value
+            c=self.__class__.__name__,
+            value=self._value,
         )

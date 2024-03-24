@@ -1,0 +1,15 @@
+services:
+  # Repositoies
+  BeerRepository:
+    module: src.contexts.beer.beer.infrastructure.persistence.sqlite.beer_repository
+    class:
+      name: SqliteBeerRepository
+      arguments:
+        - !ref Database.Session
+
+  StoreRepository:
+    module: src.contexts.beer.store.infrastructure.persistence.sqlite.store_repository
+    class:
+      name: SqliteStoreRepository
+      arguments:
+        - !ref Database.Session

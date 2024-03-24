@@ -267,6 +267,25 @@ files = [
 ]
 
 [[package]]
+name = "ditainer"
+version = "0.1.0"
+description = ""
+optional = false
+python-versions = ">=3.12,<4.0"
+files = [
+    {file = "ditainer-0.1.0-py3-none-any.whl", hash = "sha256:e165fd729aaeea5aa948659c032ed35aed78d7e7db91b37942f8ffa2c4a1c8c1"},
+    {file = "ditainer-0.1.0.tar.gz", hash = "sha256:1040c48218a1e5c7ad364b7c400456ae23162802c0848635d2079ed639b504d5"},
+]
+
+[package.dependencies]
+pyyaml = ">=6.0.1,<7.0.0"
+
+[package.source]
+type = "legacy"
+url = "https://test.pypi.org/simple"
+reference = "test"
+
+[[package]]
 name = "executing"
 version = "2.0.1"
 description = "Get the currently executing AST node of a frame, and other information"
@@ -1246,4 +1265,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "4820af63391885582dd8d6bf7fcad49a55c0be724865b02a07339ead347b98db"
+content-hash = "656123541eee4ac36f6940b5bfcb084e9fc1542f48c7e3d6d13e82bc266484b5"

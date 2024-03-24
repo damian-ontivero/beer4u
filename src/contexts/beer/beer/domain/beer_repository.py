@@ -6,15 +6,6 @@ from .beer import Beer
 
 
 class BeerRepository(metaclass=ABCMeta):
-    """
-    Interface for Beer repositories.
-    This interface should be implemented by any repository
-    that is going to be used to retrieve and persist Beer instances.
-    """
-
-    @abstractmethod
-    def search_by_criteria(self, criteria: Criteria) -> list[Beer]:
-        raise NotImplementedError
 
     @abstractmethod
     def search_all(self) -> list[Beer]:
@@ -22,6 +13,10 @@ class BeerRepository(metaclass=ABCMeta):
 
     @abstractmethod
     def search(self, id: str) -> Beer | None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def matching(self, criteria: Criteria) -> list[Beer]:
         raise NotImplementedError
 
     @abstractmethod

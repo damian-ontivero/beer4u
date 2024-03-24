@@ -5,13 +5,6 @@ from src.contexts.shared.domain.entity_id import EntityId
 
 
 class Entity(metaclass=ABCMeta):
-    """
-    Abstract base class for entities.
-
-    Entities are domain objects with unique identity and defined by attributes.
-    They have a specific life cycle: creation, update, and deletion. They are
-    mutable and can be compared by their identity.
-    """
 
     class Created(DomainEvent):
         pass
@@ -29,7 +22,6 @@ class Entity(metaclass=ABCMeta):
 
     @property
     def id(self) -> EntityId:
-        # self._check_not_discarded()
         return self._id
 
     @property

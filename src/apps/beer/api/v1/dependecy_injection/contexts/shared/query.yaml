@@ -1,0 +1,7 @@
+services:
+  QueryBus:
+    module: src.contexts.shared.infrastructure.bus.query.in_memory_query_bus
+    class:
+      name: InMemoryQueryBus
+      arguments:
+        - !tagged query_handler

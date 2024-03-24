@@ -1,0 +1,8 @@
+imports:
+  - { resource: ./contexts/shared/database.yaml }
+  - { resource: ./contexts/shared/query.yaml }
+  - { resource: ./contexts/shared/command.yaml }
+  - { resource: ./contexts/beer/repository.yaml }
+  - { resource: ./contexts/beer/query.yaml }
+  - { resource: ./contexts/beer/command.yaml }
+  - { resource: ./apps/controller.yaml }

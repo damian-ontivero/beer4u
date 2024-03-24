@@ -4,13 +4,6 @@ from src.contexts.shared.domain.entity_id import EntityId
 
 
 class AggregateRoot(Entity):
-    """
-    Base class for aggregate roots.
-
-    Aggregate roots encapsulate a group of entities and value objects.
-    They ensure the aggregate is always in a consistent state and contain
-    the domain events raised by the aggregate.
-    """
 
     def __init__(self, id: EntityId, discarded: bool = False) -> None:
         super().__init__(id, discarded)
