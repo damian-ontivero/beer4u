@@ -1,5 +1,4 @@
 services:
-  # Repositoies
   BeerRepository:
     module: src.contexts.beer.beer.infrastructure.persistence.sqlite.beer_repository
     class:
